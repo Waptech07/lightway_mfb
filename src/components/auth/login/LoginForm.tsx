@@ -15,7 +15,7 @@ export default function LoginForm() {
 
       {/* Heading - left aligned */}
       <div className="mb-8">
-        <h2 className="text-[26px] font-bold text-gray-900 leading-[1.2] text-left">
+        <h2 className=" text-xl font-bold text-gray-900 text-left">
           Welcome, Please Login
         </h2>
         <p className="text-gray-500 text-[15px] mt-[9px] text-left">
@@ -86,10 +86,11 @@ export default function LoginForm() {
         >
           Log into your Account
         </Button>
-        {/* Footer: Create Account */}
-        <p className="text-center text-[15px] text-gray-800 pt-[10px]">
+        
+
+        <p className="font-normal text-base leading-6 tracking-normal text-center">
           Are you new here?{" "}
-          <a href="#" className="text-[#E93C3C] font-medium hover:underline">
+          <a href="#" className="text-red700">
             Create Account
           </a>
         </p>{" "}
