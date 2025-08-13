@@ -10,7 +10,8 @@ export default function Login() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="w-full md:w-2/5 flex items-center justify-center px-4 py-12">
+      {/* Had py-12 and added it back in max-md */}
+      <div className="w-full md:w-2/5 max-md:py-12 flex items-center justify-center px-4">
         <LoginForm />
       </div>
     </div>

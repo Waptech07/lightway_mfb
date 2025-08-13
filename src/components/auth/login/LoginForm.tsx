@@ -7,7 +7,8 @@ import Logo from "@/assets/logo.svg";
 
 export default function LoginForm() {
   return (
-    <div className="w-full max-w-md p-8">
+    // had p-8
+    <div className="w-full max-w-md px-8">
       {/* Logo - left aligned */}
       <div className="mb-8">
         <img src={Logo} alt="Lightway MFB" className="h-10" />
