@@ -5,7 +5,8 @@ export default function ResetPasswordForm() {
   const [username, setUsername] = useState("");
 
   return (
-    <div className="min-h-screen flex flex-col items-start p-8 bg-white font-sans">
+    // min-h-screen
+    <div className="flex flex-col items-start max-md:justify-center max-md:h-screen px-8 font-sans">
       {/* Logo */}
       
       <div className="mb-8">
@@ -28,7 +29,7 @@ export default function ResetPasswordForm() {
           Enter your correct email and we will send the process to your email
         </p>
 
-        <label htmlFor="username" className="block mb-2 font-medium">
+        <label htmlFor="username" className="block mb-2 text-left font-medium">
           Username
         </label>
         <div className="relative mb-8">

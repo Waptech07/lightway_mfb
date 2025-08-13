@@ -1,5 +1,5 @@
 import AuthSidePanel from "@/components/auth/SidePanel";
-
+import ResetPasswordForm from "@/components/auth/reset-password/ResetPasswordForm";
 export default function ResetPassword() {
   return (
     <div className="flex min-h-screen w-full flex-col md:flex-row">
@@ -9,8 +9,9 @@ export default function ResetPassword() {
       </div>
 
       {/* Right Panel - Reset Password Form */}
-      <div className="w-full md:w-2/5 flex items-center justify-center px-4 py-12">
-        <ResetPassword />
+      {/* had py-12 b4 */}
+      <div className="w-full md:w-2/5 flex items-center justify-center px-4">
+        <ResetPasswordForm />
       </div>
     </div>
   );
