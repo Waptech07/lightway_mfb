@@ -7,7 +7,7 @@ import Logo from "@/assets/logo.svg";
 
 export default function LoginForm() {
   return (
-    // had p-8
+    // had py-12 b4
     <div className="w-full max-w-md px-8">
       {/* Logo - left aligned */}
       <div className="mb-8">
@@ -16,7 +16,7 @@ export default function LoginForm() {
 
       {/* Heading - left aligned */}
       <div className="mb-8">
-        <h2 className=" text-xl font-bold text-gray-900 text-left">
+        <h2 className="text-[26px] font-bold text-gray-900 leading-[1.2] text-left">
           Welcome, Please Login
         </h2>
         <p className="text-gray-500 text-[15px] mt-[9px] text-left">
@@ -87,11 +87,10 @@ export default function LoginForm() {
         >
           Log into your Account
         </Button>
-        
-
-        <p className="font-normal text-base leading-6 tracking-normal text-center">
+        {/* Footer: Create Account */}
+        <p className="text-center text-[15px] text-gray-800 pt-[10px]">
           Are you new here?{" "}
-          <a href="#" className="text-red700">
+          <a href="#" className="text-[#E93C3C] font-medium hover:underline">
             Create Account
           </a>
         </p>{" "}
