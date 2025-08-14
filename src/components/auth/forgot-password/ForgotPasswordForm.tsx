@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Logo from "@/assets/logo.svg";
 
-export default function ForgotPasswordForm() {
+export default function ForgotPasswordForm(): React.JSX.Element {
   const [username, setUsername] = useState("");
 
   return (
     // min-h-screen
     <div className="flex flex-col items-start max-md:justify-center max-md:h-screen px-8 font-sans">
       {/* Logo */}
-      
+
       <div className="mb-8">
         <img src={Logo} alt="Lightway MFB" className="h-10" />
       </div>

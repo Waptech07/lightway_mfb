@@ -47,7 +47,8 @@ export default function MainLayout() {
       />
 
       {/* Main Content */}
-      <div className="flex-1 bg-gray-100 p-8 overflow-auto">
+      {/* was p-8 b4 */}
+      <div className="flex-1 bg-gray-100 p-4 overflow-auto">
         <Outlet />
       </div>
     </div>

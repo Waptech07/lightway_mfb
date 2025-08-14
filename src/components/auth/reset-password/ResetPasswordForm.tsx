@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import Logo from "@/assets/logo.svg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { RiLock2Line } from "react-icons/ri";
-import { Mail, Lock, Check, X } from "lucide-react";
+import {  Lock, Check, X } from "lucide-react";
 const ResetPasswordForm = (): React.JSX.Element => {
 
     const [formData, setFormData] = useState({

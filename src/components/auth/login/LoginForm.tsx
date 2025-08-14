@@ -87,7 +87,7 @@ export default function LoginForm() {
         >
           Log into your Account
         </Button>
-        
+
         <p className="text-center text-[15px] text-gray-800 pt-[10px]">
           Are you new here?{" "}
           <a href="#" className="text-[#CC340E] font-medium hover:underline ml-1">

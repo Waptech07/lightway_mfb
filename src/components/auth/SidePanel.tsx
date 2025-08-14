@@ -4,7 +4,7 @@ import illustration from "@/assets/auth-illustration.png";
 export default function AuthSidePanel() {
   return (
     <div
-    // was h-full b4
+      // was h-full b4
       className="h-screen w-full bg-cover bg-center"
       style={{
         backgroundImage: `url(${bgImage})`,
