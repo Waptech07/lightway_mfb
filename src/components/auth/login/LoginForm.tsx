@@ -41,7 +41,7 @@ export default function LoginForm() {
               id="username"
               type="text"
               placeholder="enoobong_george"
-              className="pl-11 h-[50px] border-2 border-[#0B0B75] rounded-lg focus-visible:ring-0 focus-visible:ring-offset-0 text-left"
+              className="pl-11 h-[50px] border-2 border-[#050C82] rounded-lg focus-visible:ring-0 focus-visible:ring-offset-0 text-left"
             />
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function LoginForm() {
               id="password"
               type="password"
               placeholder="********"
-              className="pl-11 h-[50px] border-2 border-[#0B0B75] rounded-lg text-left"
+              className="pl-11 h-[50px] border-2 border-[#050C82] rounded-lg text-left"
             />
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function LoginForm() {
           </div>
           <a
             href="#"
-            className="text-[15px] text-[#E93C3C] font-medium hover:underline"
+            className="text-[15px] text-[#CC340E] font-medium hover:underline"
           >
             Forgot Password?
           </a>
@@ -83,14 +83,14 @@ export default function LoginForm() {
         {/* Submit Button */}
         <Button
           type="submit"
-          className="w-full bg-[#0B0B75] hover:bg-[#0b0b95] text-white rounded-lg h-[52px] text-[16px] font-semibold mt-[6px]"
+          className="w-full bg-[#050C82] hover:bg-[#34399B] text-white rounded-lg h-[52px] text-[16px] font-semibold mt-[6px]"
         >
           Log into your Account
         </Button>
-        {/* Footer: Create Account */}
+        
         <p className="text-center text-[15px] text-gray-800 pt-[10px]">
           Are you new here?{" "}
-          <a href="#" className="text-[#E93C3C] font-medium hover:underline">
+          <a href="#" className="text-[#CC340E] font-medium hover:underline ml-1">
             Create Account
           </a>
         </p>{" "}
