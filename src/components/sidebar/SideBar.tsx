@@ -101,8 +101,9 @@ export default function SideBar({
     >
       <button
         onClick={toggleSidebar}
-        className={`absolute top-4 z-20 text-[#050C82] p-2 rounded-full hover:bg-[#050C82]/10 transition-transform ${isCollapsed ? "left-1/2 transform -translate-x-1/2" : "right-4"
-          }`}
+        className={`absolute cursor-pointer top-4 z-20 text-[#050C82] p-2 rounded-full hover:bg-[#050C82]/10 transition-transform ${
+          isCollapsed ? "left-1/2 transform -translate-x-1/2" : "right-4"
+        }`}
       >
         {isCollapsed ? (
           <HiOutlineMenu className="w-6 h-6" />
@@ -134,15 +135,17 @@ export default function SideBar({
               <div className="flex flex-col">
                 <button
                   onClick={() => navigateTo(item.path)}
-                  className={`flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${activeItem === item.name
+                  className={`cursor-pointer flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${
+                    activeItem === item.name
                       ? "bg-[#050C82] text-white"
                       : "hover:bg-[#050C82] hover:text-white"
-                    }`}
+                  }`}
                 >
                   <div className="flex items-center">
                     <item.icon
-                      className={`flex-shrink-0 ${isCollapsed ? "w-6 h-6" : "w-5 h-5"
-                        }`}
+                      className={`flex-shrink-0 ${
+                        isCollapsed ? "w-6 h-6" : "w-5 h-5"
+                      }`}
                     />
 
                     {!isCollapsed && (
@@ -165,10 +168,10 @@ export default function SideBar({
                         e.stopPropagation();
                         toggleDropdown(item.name.toLowerCase());
                       }}
-                      className="p-1 ml-2 hover:bg-[#050C82]/20 rounded-full"
+                      className="cursor-zoom-in p-1 ml-2 hover:bg-[#050C82]/20 rounded-full"
                     >
                       {(item.name === "Transfer" && transferOpen) ||
-                        (item.name === "My Requests" && requestsOpen) ? (
+                      (item.name === "My Requests" && requestsOpen) ? (
                         <HiChevronUp className="w-4 h-4" />
                       ) : (
                         <HiChevronDown className="w-4 h-4" />
@@ -181,7 +184,7 @@ export default function SideBar({
                 {!isCollapsed && item.subItems && (
                   <AnimatePresence>
                     {(item.name === "Transfer" && transferOpen) ||
-                      (item.name === "My Requests" && requestsOpen) ? (
+                    (item.name === "My Requests" && requestsOpen) ? (
                       <motion.ul
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
@@ -193,10 +196,11 @@ export default function SideBar({
                           <li key={subItem.name}>
                             <button
                               onClick={() => navigateTo(subItem.path)}
-                              className={`flex items-center w-full py-3 px-4 text-left transition-colors rounded-lg ${activeItem === subItem.path
+                              className={`cursor-pointer flex items-center w-full py-3 px-4 text-left transition-colors rounded-lg ${
+                                activeItem === subItem.path
                                   ? "bg-[#050C82] text-[#050C82] font-medium"
                                   : "hover:bg-[#050C82] hover:text-white"
-                                }`}
+                              }`}
                             >
                               <span className="ml-1">{subItem.name}</span>
                             </button>
@@ -218,18 +222,20 @@ export default function SideBar({
             <li key={item.name}>
               <button
                 onClick={() => navigateTo(item.path)}
-                className={`flex items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${activeItem === item.path
+                className={`flex items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${
+                  activeItem === item.path
                     ? item.name === "Logout"
                       ? "bg-[#CC340E] text-[#CC340E] hover:text-white font-medium"
                       : "bg-[#050C82] text-white"
                     : item.name === "Logout"
-                      ? "hover:bg-[#CC340E] hover:text-white text-[#CC340E]"
-                      : "hover:bg-[#050C82] hover:text-white"
-                  }`}
+                    ? "hover:bg-[#CC340E] hover:text-white text-[#CC340E]"
+                    : "hover:bg-[#050C82] hover:text-white"
+                }`}
               >
                 <item.icon
-                  className={` flex-shrink-0 ${isCollapsed ? "w-6 h-6" : "w-5 h-5"
-                    }`}
+                  className={` flex-shrink-0 ${
+                    isCollapsed ? "w-6 h-6" : "w-5 h-5"
+                  }`}
                 />
 
                 {!isCollapsed && (

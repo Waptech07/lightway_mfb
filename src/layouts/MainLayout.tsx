@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "@/components/sidebar/SideBar";
+import { AnimatePresence, motion } from "framer-motion";
+import Logo from "@/assets/logo.svg";
 
 export default function MainLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -47,9 +49,25 @@ export default function MainLayout() {
       />
 
       {/* Main Content */}
-      {/* was p-8 b4 */}
-      <div className="flex-1 bg-gray-100 p-4 overflow-auto">
-        <Outlet />
+      <div className="flex-1 bg-gray-100 overflow-auto flex flex-col">
+        <AnimatePresence>
+          {isCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="pt-6 px-6"
+            >
+              <img src={Logo} alt="Lightway MFB" className="h-10" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Page Content */}
+        <div className="p-6 flex-1">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
