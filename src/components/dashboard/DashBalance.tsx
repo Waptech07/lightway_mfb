@@ -4,7 +4,7 @@ import { PiEyeSlash } from "react-icons/pi";
 import { FaRegCopy } from "react-icons/fa6";
 const DashBalance = (): React.JSX.Element => {
   return (
-    <div className="w-[462px] font-sf-pro border-2 border-primary/30 rounded-xl p-4  flex flex-col gap-10 " style={{ backgroundImage: `url(${bg})` }}>
+    <div className="w-[462px] font-sf-pro border-2 border-primary/30 text-left rounded-xl p-4  flex flex-col gap-10 " style={{ backgroundImage: `url(${bg})` }}>
       <div className="flex justify-between">
         <div className="">
           <h3 className='text-sm font-normal'>Available Balance</h3>
