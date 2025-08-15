@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
@@ -7,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import MainLayout from './layouts/MainLayout'
+import Statements from './pages/Statements'
 
 function App(): React.JSX.Element {
   return (
@@ -19,6 +19,7 @@ function App(): React.JSX.Element {
       {/* MainLayout routes*/}
       <Route element={<MainLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/statements" element={<Statements />} />
       </Route>
     </Routes>
   )
