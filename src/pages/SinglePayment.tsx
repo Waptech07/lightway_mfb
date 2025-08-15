@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Header from '@/components/Header'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import AvailableBalance from '@/components/AvailableBalance'
+import DestinationForm from '@/components/single-payment/DestinationForm'
 
 const SinglePayment = (): React.JSX.Element => {
     type Tab = {
@@ -48,7 +48,7 @@ const SinglePayment = (): React.JSX.Element => {
                     >{tab.label}</button>))}
             </div>
             <AvailableBalance accountNumber={'3115679989'} availableBalance={50999} />
-
+            <DestinationForm />
         </div>)
 }
 

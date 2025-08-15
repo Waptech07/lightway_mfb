@@ -5,7 +5,7 @@ import { FaRegCopy } from "react-icons/fa6";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 // import { formatCurrency } from '@/utils/formatCurrency'; // Assuming you have a utility function for formatting currency
 
-const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: string, availableBalance: number }) => {
+const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: string, availableBalance: number }):React.JSX.Element => {
 
     const [copied, setCopied] = useState(false);
     const [showBalance, setShowBalance] = useState(true);
