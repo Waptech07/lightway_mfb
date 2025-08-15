@@ -168,7 +168,7 @@ export default function SideBar({
                   <button
                     onClick={() => {
                       navigateTo(item.path);
-                      // if (isMobile) toggleSidebar();
+                      if (isMobile && !isCollapsed) toggleSidebar();
                     }}
                     className={`cursor-pointer flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${
                       activeItem === item.name
@@ -279,7 +279,7 @@ export default function SideBar({
                 <button
                   onClick={() => {
                     navigateTo(item.path);
-                    if (isMobile) toggleSidebar();
+                    if (isMobile && !isCollapsed) toggleSidebar();
                   }}
                   className={`flex items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${
                     activeItem === item.path
