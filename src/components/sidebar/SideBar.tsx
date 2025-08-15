@@ -12,7 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "@/assets/logo.svg";
 import { RiArrowLeftRightLine, RiBankLine } from "react-icons/ri";
-import { ArrowLeftToLine } from "lucide-react";
+import { ArrowLeftToLine, CornerDownRight } from "lucide-react";
 
 interface SideBarProps {
   isCollapsed: boolean;
@@ -196,13 +196,14 @@ export default function SideBar({
                           <li key={subItem.name}>
                             <button
                               onClick={() => navigateTo(subItem.path)}
-                              className={`cursor-pointer flex items-center w-full py-3 px-4 text-left transition-colors rounded-lg ${
+                              className={`cursor-pointer flex items-center w-full py-3 px-3 text-left transition-colors rounded-lg ${
                                 activeItem === subItem.path
                                   ? "bg-[#050C82] text-[#050C82] font-medium"
                                   : "hover:bg-[#050C82] hover:text-white"
                               }`}
                             >
-                              <span className="ml-1">{subItem.name}</span>
+                              <CornerDownRight className=" flex-shrink-0 w-5 h-5 ml-4" />
+                              <span className="ml-3">{subItem.name}</span>
                             </button>
                           </li>
                         ))}
