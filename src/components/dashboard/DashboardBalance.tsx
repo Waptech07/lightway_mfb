@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bg from "@/assets/dashboard-balance.png";
+import bg from "@/assets/card-bg.png";
 import { PiEye, PiEyeSlash } from "react-icons/pi";
 import { FaRegCopy } from "react-icons/fa6";
 
