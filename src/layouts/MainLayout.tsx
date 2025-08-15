@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "@/components/sidebar/SideBar";
 import { AnimatePresence, motion } from "framer-motion";
@@ -6,6 +6,7 @@ import Logo from "@/assets/logo.svg";
 
 export default function MainLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,6 +23,23 @@ export default function MainLayout() {
   const activeItem =
     menuItems.find((item) => location.pathname === item.path)?.name ||
     "Dashboard";
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    // Start with collapsed sidebar on mobile
+    if (window.innerWidth < 768) {
+      setIsCollapsed(true);
+    }
+
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -41,11 +59,25 @@ export default function MainLayout() {
 
   return (
     <div className="flex h-screen">
+      {/* Mobile Overlay Backdrop */}
+      <AnimatePresence>
+        {isMobile && !isCollapsed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/30 z-40 md:hidden"
+            onClick={toggleSidebar}
+          />
+        )}
+      </AnimatePresence>
+
       <SideBar
         isCollapsed={isCollapsed}
         activeItem={activeItem}
         navigateTo={navigateTo}
         toggleSidebar={toggleSidebar}
+        isMobile={isMobile}
       />
 
       {/* Main Content */}
