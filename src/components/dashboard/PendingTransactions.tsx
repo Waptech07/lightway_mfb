@@ -35,7 +35,7 @@ export const PendingTransactions = (): React.JSX.Element => {
         }
     ];
     return (
-        <div className='flex-1 flex flex-col gap-4 '>
+        <div className='flex-1 flex flex-col gap-4 min-w-80'>
             <div className="flex items-center justify-between">
                 <div className="">
                     <h2 className="text-base font-medium">Pending Transactions</h2>
@@ -43,7 +43,7 @@ export const PendingTransactions = (): React.JSX.Element => {
                 </div>
                 <Link to={""} className="text-primary flex items-center gap-1">View All <GoArrowRight /></Link>
             </div>
-            <div className="w-full max-w-md mx-auto rounded-md">
+            <div className="w-full">
                 <div
                     role="list"
                     aria-label="User list with account information"

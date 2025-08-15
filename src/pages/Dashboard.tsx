@@ -75,7 +75,7 @@ const Dashboard = (): React.JSX.Element => {
           />
         </div>
       </section>
-      <section className="flex gap-6">
+      <section className="flex gap-6 flex-wrap">
         <RecentTransactions />
         <PendingTransactions />
       </section>

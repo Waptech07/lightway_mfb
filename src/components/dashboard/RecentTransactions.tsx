@@ -102,7 +102,7 @@ const RecentTransactions = (): React.JSX.Element => {
 
 
     return (
-        <div className='flex-2 flex gap-4 flex-col'>
+        <div className='flex-2 flex gap-4 flex-col min-w-lg'>
             <div className="flex items-center justify-between">
                 <div className="">
                     <h2 className="text-base font-medium">Recent Transactions</h2>
