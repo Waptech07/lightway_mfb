@@ -122,13 +122,13 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
     document.body.removeChild(link);
   };
 
-  // Custom input component for date picker to match our design
+  // Custom date input component
   const CustomDateInput = React.forwardRef<
     HTMLButtonElement,
     { value?: string; onClick?: () => void }
   >(({ value, onClick }, ref) => (
     <button
-      className="relative flex items-center w-[200px] px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-sm text-black cursor-pointer"
+      className="relative flex items-center w-[200px] py-3 px-2 bg-transparent border border-gray-300 rounded-lg text-sm text-black cursor-pointer"
       onClick={onClick}
       ref={ref}
       type="button"
@@ -312,6 +312,11 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
             </div>
           </div>
 
+        </div>
+        
+        <div className="flex">
+
+        </div>
           {/* Search Button */}
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -325,7 +330,6 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
           >
             {isLoading ? "Searching..." : "Search"}
           </motion.button>
-        </div>
 
         {/* Transactions Table (Hidden until search) */}
         {transactions.length > 0 && (

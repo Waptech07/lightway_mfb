@@ -10,6 +10,7 @@ import MainLayout from "./layouts/MainLayout";
 import Statements from "./pages/Statements";
 import Settings from "./pages/Settings";
 import SinglePayments from "./pages/SinglePayment";
+import TransactionHistory from "./pages/TransactionHistory";
 
 function App(): React.JSX.Element {
   return (
@@ -24,6 +25,7 @@ function App(): React.JSX.Element {
         {/* MainLayout routes*/}
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/transaction-history" element={<TransactionHistory />} />
           <Route path="/statements" element={<Statements />} />
           <Route path="/settings" element={<Settings />} />
           <Route

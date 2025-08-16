@@ -1,7 +1,6 @@
 import LegalTab from "@/components/settings/LegalTab";
 import SecurityTab from "@/components/settings/SecurityTab";
 import React, { useState } from "react";
-import { MdNotifications } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 

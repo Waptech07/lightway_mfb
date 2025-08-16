@@ -76,7 +76,7 @@ export default function SideBar({
       {
         name: "Transaction History",
         icon: HiOutlineClock,
-        path: "/transactions",
+        path: "/transaction-history",
       },
       {
         name: "Statements",
