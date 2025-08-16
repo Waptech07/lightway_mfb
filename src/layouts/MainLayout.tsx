@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SideBar from "@/components/sidebar/SideBar";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/assets/logo.svg";
+import { HiOutlineMenu } from "react-icons/hi";
 
 export default function MainLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -10,33 +11,20 @@ export default function MainLayout() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const menuItems = [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Transfer", path: "/transfer" },
-    { name: "My Requests", path: "/requests" },
-    { name: "Transaction History", path: "/transactions" },
-    { name: "Statements", path: "/statements" },
-    { name: "Settings", path: "/settings" },
-    { name: "Logout", path: "/login" },
-  ];
-
-  const activeItem =
-    menuItems.find((item) => location.pathname === item.path)?.name ||
-    "Dashboard";
-
   // Check if mobile on mount and resize
   useEffect(() => {
     const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+
+      // Collapse sidebar on mobile by default
+      if (mobile) {
+        setIsCollapsed(true);
+      }
     };
 
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
-
-    // Start with collapsed sidebar on mobile
-    if (window.innerWidth < 768) {
-      setIsCollapsed(true);
-    }
 
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
@@ -45,13 +33,10 @@ export default function MainLayout() {
     setIsCollapsed(!isCollapsed);
   };
 
-  const handleLogout = () => {
-    navigate("/login");
-  };
-
   const navigateTo = (path: string) => {
     if (path === "/login") {
-      handleLogout();
+      // Handle logout logic
+      navigate("/login");
     } else {
       navigate(path);
     }
@@ -72,29 +57,45 @@ export default function MainLayout() {
         )}
       </AnimatePresence>
 
-      <SideBar
-        isCollapsed={isCollapsed}
-        activeItem={activeItem}
-        navigateTo={navigateTo}
-        toggleSidebar={toggleSidebar}
-        isMobile={isMobile}
-      />
+      {(!isMobile || (isMobile && !isCollapsed)) && (
+        <SideBar
+          isCollapsed={isCollapsed}
+          activePath={location.pathname}
+          navigateTo={navigateTo}
+          toggleSidebar={toggleSidebar}
+          isMobile={isMobile}
+        />
+      )}
 
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 overflow-auto flex flex-col">
-        <AnimatePresence>
-          {isCollapsed && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="pt-6 px-6"
+        <div className="w-full flex flex-row justify-between px-6">
+          <AnimatePresence>
+            {isCollapsed && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2 }}
+                className="pt-6"
+              >
+                <img src={Logo} alt="Lightway MFB" className="h-10" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Collapse Button for mobile */}
+          {isMobile && isCollapsed && (
+            <button
+              title="Toggle sidebar"
+              onClick={toggleSidebar}
+              className="fixed top-4 right-4 z-50 bg-white p-2 rounded-full shadow-md text-[#050C82]"
+              aria-label="Open sidebar"
             >
-              <img src={Logo} alt="Lightway MFB" className="h-10" />
-            </motion.div>
+              <HiOutlineMenu className="w-6 h-6" />
+            </button>
           )}
-        </AnimatePresence>
+        </div>
 
         {/* Page Content */}
         <div className="p-6 flex-1">

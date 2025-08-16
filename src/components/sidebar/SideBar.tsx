@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   HiOutlineHome,
   HiOutlineDocumentText,
@@ -15,9 +15,22 @@ import Logo from "@/assets/logo.svg";
 import { RiArrowLeftRightLine, RiBankLine } from "react-icons/ri";
 import { ArrowLeftToLine, CornerDownRight } from "lucide-react";
 
+interface MenuItem {
+  name: string;
+  icon: React.ElementType;
+  path: string;
+  subItems?: SubMenuItem[];
+  color?: string;
+}
+
+interface SubMenuItem {
+  name: string;
+  path: string;
+}
+
 interface SideBarProps {
   isCollapsed: boolean;
-  activeItem: string;
+  activePath: string;
   navigateTo: (path: string) => void;
   toggleSidebar: () => void;
   isMobile: boolean;
@@ -25,7 +38,7 @@ interface SideBarProps {
 
 export default function SideBar({
   isCollapsed,
-  activeItem,
+  activePath,
   navigateTo,
   toggleSidebar,
   isMobile,
@@ -34,67 +47,92 @@ export default function SideBar({
   const [requestsOpen, setRequestsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
 
-  const topMenuItems = [
-    {
-      name: "Dashboard",
-      icon: HiOutlineHome,
-      path: "/dashboard",
-    },
-    {
-      name: "Transfer",
-      icon: RiArrowLeftRightLine,
-      path: "/transfer",
-      subItems: [
-        { name: "Internal Transfer", path: "/transfer/internal" },
-        { name: "External Transfer", path: "/transfer/external" },
-        { name: "Bulk Transfer", path: "/transfer/bulk" },
-      ],
-    },
-    {
-      name: "My Requests",
-      icon: RiBankLine,
-      path: "/requests",
-      subItems: [
-        { name: "Pending Requests", path: "/requests/pending" },
-        { name: "Approved Requests", path: "/requests/approved" },
-        { name: "Rejected Requests", path: "/requests/rejected" },
-      ],
-    },
-    {
-      name: "Transaction History",
-      icon: HiOutlineClock,
-      path: "/transactions",
-    },
-    {
-      name: "Statements",
-      icon: HiOutlineDocumentText,
-      path: "/statements",
-    },
-  ];
+  // Memoize menu items to prevent recreating on every render
+  const topMenuItems = useMemo<MenuItem[]>(
+    () => [
+      {
+        name: "Dashboard",
+        icon: HiOutlineHome,
+        path: "/dashboard",
+      },
+      {
+        name: "Transfer",
+        icon: RiArrowLeftRightLine,
+        path: "/transfer",
+        subItems: [
+          { name: "Single Payments", path: "/transfer/single-payments" },
+          { name: "Bulk Payments", path: "/transfer/bulk" },
+        ],
+      },
+      {
+        name: "My Requests",
+        icon: RiBankLine,
+        path: "/requests",
+        subItems: [
+          { name: "All Requests", path: "/requests/all-requests" },
+          { name: "Pending Requests", path: "/requests/pending-requests" },
+        ],
+      },
+      {
+        name: "Transaction History",
+        icon: HiOutlineClock,
+        path: "/transactions",
+      },
+      {
+        name: "Statements",
+        icon: HiOutlineDocumentText,
+        path: "/statements",
+      },
+    ],
+    []
+  );
 
-  const bottomMenuItems = [
-    {
-      name: "Settings",
-      icon: HiOutlineCog,
-      path: "/settings",
-    },
-    {
-      name: "Logout",
-      icon: HiOutlineLogout,
-      path: "/login",
-      color: "#CC340E",
-    },
-  ];
+  const bottomMenuItems = useMemo<MenuItem[]>(
+    () => [
+      {
+        name: "Settings",
+        icon: HiOutlineCog,
+        path: "/settings",
+      },
+      {
+        name: "Logout",
+        icon: HiOutlineLogout,
+        path: "/login",
+        color: "#CC340E",
+      },
+    ],
+    []
+  );
 
-  const toggleDropdown = (menu: string) => {
+  // Check if a menu item is active
+  const isItemActive = useCallback(
+    (item: MenuItem) => {
+      return (
+        activePath === item.path ||
+        (item.subItems?.some((sub) => sub.path === activePath) ?? false)
+      );
+    },
+    [activePath]
+  );
+
+  // Check if a subitem is active
+  const isSubItemActive = useCallback(
+    (path: string) => {
+      return activePath === path;
+    },
+    [activePath]
+  );
+
+  // Toggle dropdowns
+  const toggleDropdown = useCallback((menu: string) => {
     if (menu === "transfer") {
-      setTransferOpen(!transferOpen);
+      setTransferOpen((prev) => !prev);
       setRequestsOpen(false);
     } else if (menu === "my requests") {
-      setRequestsOpen(!requestsOpen);
+      setRequestsOpen((prev) => !prev);
       setTransferOpen(false);
     }
-  };
+  }, []);
 
   // Close dropdowns when sidebar collapses
   useEffect(() => {
@@ -104,8 +142,54 @@ export default function SideBar({
     }
   }, [isCollapsed]);
 
+  // Expand dropdown when subitem is active
+  useEffect(() => {
+    if (!isCollapsed) {
+      // Check transfer subitems
+      const transferItem = topMenuItems.find(
+        (item) => item.name === "Transfer"
+      );
+      if (transferItem?.subItems?.some((sub) => sub.path === activePath)) {
+        setTransferOpen(true);
+      }
+
+      // Check requests subitems
+      const requestsItem = topMenuItems.find(
+        (item) => item.name === "My Requests"
+      );
+      if (requestsItem?.subItems?.some((sub) => sub.path === activePath)) {
+        setRequestsOpen(true);
+      }
+    }
+  }, [activePath, isCollapsed, topMenuItems]);
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent,
+    item: MenuItem | SubMenuItem,
+    isSubItem = false
+  ) => {
+    const key = e.key;
+
+    if (key === "Enter" || key === " ") {
+      e.preventDefault();
+      navigateTo(item.path);
+      if (isMobile && !isCollapsed) toggleSidebar();
+    } else if (
+      !isSubItem &&
+      "subItems" in item &&
+      item.subItems &&
+      key === "ArrowRight"
+    ) {
+      e.preventDefault();
+      toggleDropdown(item.name.toLowerCase());
+    } else if (key === "Escape") {
+      e.preventDefault();
+      if (isMobile && !isCollapsed) toggleSidebar();
+    }
+  };
+
   return (
-    <motion.div
+    <motion.aside
       className={`bg-[#FAFAFA] text-[#050C82] flex flex-col h-full w-full px-3 relative 
         ${isMobile && !isCollapsed ? "fixed inset-0 z-50 shadow-xl" : ""}`}
       initial={false}
@@ -113,13 +197,15 @@ export default function SideBar({
         width: isMobile && !isCollapsed ? "100%" : isCollapsed ? 80 : 272,
       }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
+      aria-label="Main navigation"
     >
       {/* Mobile Close Button */}
       {isMobile && !isCollapsed && (
         <button
-          title="toggle sidebar"
+          title="Close sidebar"
           onClick={toggleSidebar}
           className="absolute top-4 right-4 text-[#050C82] p-2 rounded-full hover:bg-[#050C82]/10"
+          aria-label="Close sidebar"
         >
           <HiX className="w-6 h-6" />
         </button>
@@ -131,6 +217,7 @@ export default function SideBar({
         className={`absolute cursor-pointer top-4 z-20 text-[#050C82] p-2 rounded-full hover:bg-[#050C82]/10 transition-transform ${
           isCollapsed ? "left-1/2 transform -translate-x-1/2" : "right-4"
         } ${isMobile && !isCollapsed ? "hidden" : ""}`}
+        aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {isCollapsed ? (
           <HiOutlineMenu className="w-6 h-6" />
@@ -155,134 +242,177 @@ export default function SideBar({
       </div>
 
       {/* Top Menu Items */}
+      {/* Top Menu Items */}
       <nav className="flex-1 py-4 space-y-1">
-        <ul className="space-y-1">
-          {topMenuItems.map((item) => (
-            <li key={item.name}>
-              <div className="flex flex-col">
-                <div
-                  className="relative group"
-                  onMouseEnter={() => isCollapsed && setShowTooltip(item.name)}
-                  onMouseLeave={() => isCollapsed && setShowTooltip(null)}
-                >
-                  <button
-                    onClick={() => {
-                      navigateTo(item.path);
-                      if (isMobile && !isCollapsed) toggleSidebar();
-                    }}
-                    className={`cursor-pointer flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${
-                      activeItem === item.name
-                        ? "bg-[#050C82] text-white"
-                        : "hover:bg-[#050C82] hover:text-white"
-                    }`}
+        <ul className="space-y-1" role="menu">
+          {topMenuItems.map((item) => {
+            const isExpanded =
+              (item.name === "Transfer" && transferOpen) ||
+              (item.name === "My Requests" && requestsOpen);
+
+            return (
+              <li key={item.name} role="none">
+                <div className="flex flex-col">
+                  <div
+                    className="relative group"
+                    onMouseEnter={() =>
+                      isCollapsed && setShowTooltip(item.name)
+                    }
+                    onMouseLeave={() => isCollapsed && setShowTooltip(null)}
                   >
-                    <div className="flex items-center">
-                      <item.icon
-                        className={`flex-shrink-0 ${
-                          isCollapsed ? "w-6 h-6" : "w-5 h-5"
-                        }`}
-                      />
-
-                      {!isCollapsed && (
-                        <motion.span
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
-                          transition={{ duration: 0.2 }}
-                          className="ml-3 font-medium"
-                        >
-                          {item.name}
-                        </motion.span>
-                      )}
-                    </div>
-
-                    {item.subItems && !isCollapsed && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
+                    <button
+                      role="menuitem"
+                      aria-haspopup={item.subItems ? "menu" : undefined}
+                      aria-expanded={item.subItems ? isExpanded : undefined}
+                      onClick={() => {
+                        if (item.subItems) {
                           toggleDropdown(item.name.toLowerCase());
-                        }}
-                        className="cursor-zoom-in p-1 ml-2 hover:bg-[#050C82]/20 rounded-full"
-                      >
-                        {(item.name === "Transfer" && transferOpen) ||
-                        (item.name === "My Requests" && requestsOpen) ? (
-                          <HiChevronUp className="w-4 h-4" />
-                        ) : (
-                          <HiChevronDown className="w-4 h-4" />
-                        )}
-                      </button>
-                    )}
-                  </button>
-
-                  {/* Tooltip for collapsed sidebar */}
-                  {isCollapsed && showTooltip === item.name && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-gray-800 text-white text-sm rounded shadow-lg z-50 whitespace-nowrap"
+                        } else {
+                          navigateTo(item.path);
+                          if (isMobile && !isCollapsed) toggleSidebar();
+                        }
+                      }}
+                      onKeyDown={(e) => handleKeyDown(e, item)}
+                      className={`cursor-pointer flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${
+                        isItemActive(item)
+                          ? "bg-[#050C82] text-white"
+                          : "hover:bg-[#050C82] hover:text-white"
+                      }`}
+                      tabIndex={0}
                     >
-                      {item.name}
-                    </motion.div>
+                      <div className="flex items-center">
+                        <item.icon
+                          className={`flex-shrink-0 ${
+                            isCollapsed ? "w-6 h-6" : "w-5 h-5"
+                          }`}
+                          aria-hidden="true"
+                        />
+
+                        {!isCollapsed && (
+                          <motion.span
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="ml-3 font-medium"
+                          >
+                            {item.name}
+                          </motion.span>
+                        )}
+                      </div>
+
+                      {item.subItems && !isCollapsed && (
+                        <button
+                          type="button"
+                          aria-label={`${isExpanded ? "Collapse" : "Expand"} ${
+                            item.name
+                          } menu`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleDropdown(item.name.toLowerCase());
+                          }}
+                          className="cursor-zoom-in p-1 ml-2 hover:bg-[#050C82]/20 rounded-full"
+                        >
+                          {isExpanded ? (
+                            <HiChevronUp
+                              className="w-4 h-4"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <HiChevronDown
+                              className="w-4 h-4"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </button>
+                      )}
+                    </button>
+
+                    {/* Tooltip for collapsed sidebar */}
+                    {isCollapsed && showTooltip === item.name && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-3 py-1.5 bg-gray-800 text-white text-sm rounded shadow-lg z-50 whitespace-nowrap"
+                      >
+                        {item.name}
+                      </motion.div>
+                    )}
+                  </div>
+
+                  {/* Dropdown Items */}
+                  {!isCollapsed && item.subItems && (
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.ul
+                          role="menu"
+                          aria-label={`${item.name} submenu`}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="px-2 mt-1 space-y-1 overflow-hidden"
+                        >
+                          {item.subItems.map((subItem) => (
+                            <li key={subItem.name} role="none">
+                              <button
+                                role="menuitem"
+                                onClick={() => {
+                                  navigateTo(subItem.path);
+                                  if (isMobile) toggleSidebar();
+                                }}
+                                onKeyDown={(e) =>
+                                  handleKeyDown(e, subItem, true)
+                                }
+                                className={`cursor-pointer flex items-center w-full py-3 px-3 text-left transition-colors rounded-lg ${
+                                  isSubItemActive(subItem.path)
+                                    ? "bg-[#050C82] text-white font-medium"
+                                    : "hover:bg-[#050C82] hover:text-white"
+                                }`}
+                                tabIndex={0}
+                              >
+                                <CornerDownRight
+                                  className="flex-shrink-0 w-5 h-5 ml-4"
+                                  aria-hidden="true"
+                                />
+                                <span className="ml-3">{subItem.name}</span>
+                              </button>
+                            </li>
+                          ))}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
                   )}
                 </div>
-
-                {/* Dropdown Items */}
-                {!isCollapsed && item.subItems && (
-                  <AnimatePresence>
-                    {(item.name === "Transfer" && transferOpen) ||
-                    (item.name === "My Requests" && requestsOpen) ? (
-                      <motion.ul
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="px-2 mt-1 space-y-1 overflow-hidden"
-                      >
-                        {item.subItems.map((subItem) => (
-                          <li key={subItem.name}>
-                            <button
-                              onClick={() => {
-                                navigateTo(subItem.path);
-                                if (isMobile) toggleSidebar();
-                              }}
-                              className={`cursor-pointer flex items-center w-full py-3 px-3 text-left transition-colors rounded-lg ${
-                                activeItem === subItem.path
-                                  ? "bg-[#050C82] text-[#050C82] font-medium"
-                                  : "hover:bg-[#050C82] hover:text-white"
-                              }`}
-                            >
-                              <CornerDownRight className="flex-shrink-0 w-5 h-5 ml-4" />
-                              <span className="ml-3">{subItem.name}</span>
-                            </button>
-                          </li>
-                        ))}
-                      </motion.ul>
-                    ) : null}
-                  </AnimatePresence>
-                )}
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
       <div className="mt-auto py-4">
-        <ul className="space-y-1">
+        <ul className="space-y-1" role="menu">
           {bottomMenuItems.map((item) => (
-            <li key={item.name}>
+            <li key={item.name} role="none">
               <div
                 className="relative group"
                 onMouseEnter={() => isCollapsed && setShowTooltip(item.name)}
                 onMouseLeave={() => isCollapsed && setShowTooltip(null)}
               >
                 <button
+                  role="menuitem"
                   onClick={() => {
                     navigateTo(item.path);
                     if (isMobile && !isCollapsed) toggleSidebar();
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      navigateTo(item.path);
+                      if (isMobile && !isCollapsed) toggleSidebar();
+                    }
+                  }}
                   className={`flex items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${
-                    activeItem === item.path
+                    activePath === item.path
                       ? item.name === "Logout"
                         ? "bg-[#CC340E] text-[#CC340E] hover:text-white font-medium"
                         : "bg-[#050C82] text-white"
@@ -290,11 +420,13 @@ export default function SideBar({
                       ? "hover:bg-[#CC340E] hover:text-white text-[#CC340E]"
                       : "hover:bg-[#050C82] hover:text-white"
                   }`}
+                  tabIndex={0}
                 >
                   <item.icon
                     className={`flex-shrink-0 ${
                       isCollapsed ? "w-6 h-6" : "w-5 h-5"
                     }`}
+                    aria-hidden="true"
                   />
 
                   {!isCollapsed && (
@@ -325,6 +457,6 @@ export default function SideBar({
           ))}
         </ul>
       </div>
-    </motion.div>
+    </motion.aside>
   );
 }

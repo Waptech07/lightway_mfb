@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import AvailableBalance from '@/components/AvailableBalance'
 import DestinationForm from '@/components/single-payment/DestinationForm'
 
-const SinglePayment = (): React.JSX.Element => {
+const SinglePayments = (): React.JSX.Element => {
     type Tab = {
         id: string;
         label: string;
@@ -52,4 +52,4 @@ const SinglePayment = (): React.JSX.Element => {
         </div>)
 }
 
-export default SinglePayment
+export default SinglePayments
