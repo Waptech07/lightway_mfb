@@ -8,7 +8,7 @@ import { SelectItem, Select, SelectContent, SelectTrigger, SelectValue, } from '
 import { Button } from '@/components/ui/button';
 const DestinationForm = (): React.JSX.Element => {
     return (
-        <form className="flex flex-col gap-4 pt-9 w-96">
+        <form className="flex flex-col gap-4 pt-9 w-96 max-tab:w-full ">
             <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='amount'>Select Destination Account</Label>
                 <Select>

@@ -68,7 +68,7 @@ export default function MainLayout() {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 bg-gray-100 overflow-auto flex flex-col">
+      <div className="flex-1 overflow-auto flex flex-col">
         <div className="w-full flex flex-row justify-between px-6">
           <AnimatePresence>
             {isCollapsed && (

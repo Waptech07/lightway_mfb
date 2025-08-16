@@ -187,10 +187,10 @@ export default function SideBar({
       if (isMobile && !isCollapsed) toggleSidebar();
     }
   };
-
+// bg-[#FAFAFA]
   return (
     <motion.aside
-      className={`bg-[#FAFAFA] text-[#050C82] flex flex-col h-full w-full px-3 relative 
+      className={`bg-[rgba(246,246,246,1)] text-[#050C82] flex flex-col h-full w-full px-3 relative 
         ${isMobile && !isCollapsed ? "fixed inset-0 z-50 shadow-xl" : ""}`}
       initial={false}
       animate={{
