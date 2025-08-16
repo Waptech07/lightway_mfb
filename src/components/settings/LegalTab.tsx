@@ -116,30 +116,45 @@ const LegalTab = () => {
         </div>
       </div>
 
-      
       {openDialog && (
-        <div className="fixed inset-0 bg-gray-50/75 bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg w-full max-w-3xl max-h-[80vh] flex flex-col">
-            <div className="p-4 border-b flex justify-between items-center">
-              <h3 className="text-lg font-bold">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/30 text-left"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="legal-doc-title"
+        >
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[80vh] flex flex-col overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b">
+              <h3
+                id="legal-doc-title"
+                className="text-lg font-semibold text-gray-900"
+              >
                 {legalDocuments.find((doc) => doc.id === openDialog)?.title}
               </h3>
               <button
-                title="close dialog"
                 onClick={handleCloseDialog}
-                className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                className="text-gray-500 hover:text-gray-700 p-1 rounded focus:outline-none focus:ring-2 focus:ring-[#050C82] cursor-pointer"
+                aria-label="Close dialog"
               >
-                <XIcon />
+                <XIcon className="w-5 h-5" />
               </button>
             </div>
-            <div
-              className="p-6 overflow-y-auto"
-              dangerouslySetInnerHTML={{ __html: documentContent[openDialog] }}
-            />
-            <div className="p-4 border-t flex justify-end">
+
+            {/* Body */}
+            <div className="px-6 py-4 overflow-y-auto text-sm text-gray-700 leading-relaxed scroll-smooth scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: documentContent[openDialog],
+                }}
+              />
+            </div>
+
+            {/* Footer */}
+            <div className="flex justify-end gap-2 px-6 py-4 border-t">
               <button
-                className="bg-[#050C82] text-white px-4 py-2 rounded hover:bg-[#050C82]/90 cursor-pointer"
                 onClick={handleCloseDialog}
+                className="bg-[#050C82] text-white px-4 py-2 rounded-md hover:bg-[#050C82]/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#050C82] cursor-pointer"
               >
                 Close
               </button>

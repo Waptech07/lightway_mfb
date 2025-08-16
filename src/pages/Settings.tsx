@@ -3,6 +3,7 @@ import SecurityTab from "@/components/settings/SecurityTab";
 import React, { useState } from "react";
 import { MdNotifications } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
+import Header from "@/components/Header";
 
 const Settings = () => {
   const [activeTab, setActiveTab] = useState<"security" | "legal">("security");
@@ -34,23 +35,10 @@ const Settings = () => {
   return (
     <div className="font-sf-pro">
       {/* Header */}
-      <header className="flex text-left justify-between items-center mb-10">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Settings</h1>
-          <p className="text-muted-foreground text-sm font-medium">
-            Customize your banking experience and security preferences.
-          </p>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="relative h-8 w-8">
-            <MdNotifications className="text-muted-foreground h-full w-full" />
-            <div className="bg-red-500 absolute top-1 right-1 h-2 w-2 rounded-full" />
-          </div>
-          <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white">
-            <p className="font-semibold text-md">EG</p>
-          </div>
-        </div>
-      </header>
+      <Header
+        header="Settings"
+        detail="Customize your banking experience and security preferences."
+      />
 
       {/* Tabs Header */}
       <div className="border-b border-gray-200 mb-6 relative">

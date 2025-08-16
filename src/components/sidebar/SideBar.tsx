@@ -302,16 +302,23 @@ export default function SideBar({
                       </div>
 
                       {item.subItems && !isCollapsed && (
-                        <button
-                          type="button"
-                          aria-label={`${isExpanded ? "Collapse" : "Expand"} ${
-                            item.name
-                          } menu`}
+                        <span
+                          className="p-1 ml-2 hover:bg-[#050C82]/20 rounded-full cursor-pointer"
                           onClick={(e) => {
                             e.stopPropagation();
                             toggleDropdown(item.name.toLowerCase());
                           }}
-                          className="cursor-zoom-in p-1 ml-2 hover:bg-[#050C82]/20 rounded-full"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.stopPropagation();
+                              toggleDropdown(item.name.toLowerCase());
+                            }
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`${isExpanded ? "Collapse" : "Expand"} ${
+                            item.name
+                          } menu`}
                         >
                           {isExpanded ? (
                             <HiChevronUp
@@ -324,7 +331,7 @@ export default function SideBar({
                               aria-hidden="true"
                             />
                           )}
-                        </button>
+                        </span>
                       )}
                     </button>
 
@@ -411,7 +418,7 @@ export default function SideBar({
                       if (isMobile && !isCollapsed) toggleSidebar();
                     }
                   }}
-                  className={`flex items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${
+                  className={`flex cursor-pointer items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${
                     activePath === item.path
                       ? item.name === "Logout"
                         ? "bg-[#CC340E] text-[#CC340E] hover:text-white font-medium"

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MdNotifications } from "react-icons/md";
 import cardBg from "@/assets/card-bg.png";
 import { FaRegCopy } from "react-icons/fa6";
 import { PiEye, PiEyeSlash, PiTrashBold } from "react-icons/pi";
@@ -15,6 +14,7 @@ import { format } from "date-fns";
 import { motion } from "framer-motion";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "@/components/Header";
 
 interface Account {
   id: string;
@@ -198,23 +198,10 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
   return (
     <div className="font-sf-pro">
       {/* Header */}
-      <header className="flex text-left justify-between items-center mb-10">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Statements</h1>
-          <p className="text-muted-foreground text-sm font-medium">
-            Quickly view and download your account statements.
-          </p>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="relative h-8 w-8">
-            <MdNotifications className="text-muted-foreground h-full w-full" />
-            <div className="bg-red-500 absolute top-1 right-1 h-2 w-2 rounded-full" />
-          </div>
-          <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white">
-            <p className="font-semibold text-md">EG</p>
-          </div>
-        </div>
-      </header>
+      <Header
+        header=" Statements"
+        detail="Quickly view and download your account statements."
+      />
 
       {/* Account Card */}
       <div
@@ -292,7 +279,9 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
               <label className="text-sm font-medium">From Date</label>
               <DatePicker
                 selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
+                onChange={(date: Date | null) => {
+                  if (date) setStartDate(date);
+                }}
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
@@ -308,7 +297,9 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
               <label className="text-sm font-medium">To Date</label>
               <DatePicker
                 selected={endDate}
-                onChange={(date: Date) => setEndDate(date)}
+                onChange={(date: Date | null) => {
+                  if (date) setEndDate(date);
+                }}
                 selectsEnd
                 startDate={startDate}
                 endDate={endDate}
