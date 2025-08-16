@@ -8,6 +8,7 @@ import ResetPassword from './pages/ResetPassword'
 import MainLayout from './layouts/MainLayout'
 import Statements from './pages/Statements'
 import Settings from './pages/Settings'
+import SinglePayment from './pages/SinglePayment'
 
 function App(): React.JSX.Element {
   return (
@@ -16,12 +17,13 @@ function App(): React.JSX.Element {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      
+
       {/* MainLayout routes*/}
       <Route element={<MainLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/statements" element={<Statements />} />
         <Route path="/settings" element={<Settings />} /> 
+        <Route path="/single-payment" element={<SinglePayment />} />
       </Route>
     </Routes>
   )

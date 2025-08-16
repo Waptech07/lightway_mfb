@@ -45,7 +45,7 @@ const DashboardBalance: React.FC<DashboardBalanceProps> = ({
 
   return (
     <div
-      className="w-full max-w-[462px] font-sf-pro border-2 border-primary/30 rounded-xl p-4 md:p-6 flex flex-col gap-6 md:gap-8 bg-cover bg-center relative overflow-hidden"
+      className="w-full max-w-[462px] border-2 border-primary/30 rounded-xl p-4 md:p-6 flex flex-col gap-6 md:gap-8 bg-cover bg-center relative overflow-hidden"
       style={{ backgroundImage: `url(${bg})` }}
     >
       <div className="flex flex-col sm:flex-row text-left justify-between gap-4 z-10">
