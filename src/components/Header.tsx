@@ -4,8 +4,8 @@ const Header = ({ header, detail }: { header: string; detail: string }) => {
   return (
     <header className="font-sf-pro flex text-left justify-between items-center mb-10">
       <div>
-        <h1 className="text-3xl font-bold mb-2 ">{header}</h1>
-        <p className="text-muted-foreground text-sm font-medium">{detail}</p>
+        <h1 className="text-3xl font-bold mb-2 max-tab:text-2xl">{header}</h1>
+        <p className="text-muted-foreground text-sm font-medium max-tab:text-xs">{detail}</p>
       </div>
       <div className="flex items-center gap-1">
         <div className="relative h-8 w-8">

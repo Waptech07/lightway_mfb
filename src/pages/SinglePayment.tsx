@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, type MouseEvent } from 'react'
 import Header from '@/components/Header'
 import AvailableBalance from '@/components/AvailableBalance'
 import DestinationForm from '@/components/single-payment/DestinationForm'
 import { motion, AnimatePresence } from "framer-motion";
-import LightwayAccForm from '@/components/single-payment/LightwayAccForm';
 import LightwayAccount from '@/components/single-payment/LightwayAccount';
+import OtherBanks from '@/components/single-payment/OtherBanks';
 
 const SinglePayments = (): React.JSX.Element => {
 
@@ -13,7 +13,7 @@ const SinglePayments = (): React.JSX.Element => {
     const [indicatorLeft, setIndicatorLeft] = useState(0);
 
     // Set initial positions after first render
-    React.useEffect(() => {
+    useEffect(() => {
         const activeButton = document.querySelector(
             `button[data-tab="${activeTab}"]`
         ) as HTMLElement;
@@ -23,7 +23,7 @@ const SinglePayments = (): React.JSX.Element => {
         }
     }, [activeTab]);
 
-    const handleTabClick = (tab: "my-accounts" | "lightway-accounts" | "other-banks", e: React.MouseEvent) => {
+    const handleTabClick = (tab: "my-accounts" | "lightway-accounts" | "other-banks", e: MouseEvent) => {
         setActiveTab(tab);
         const target = e.target as HTMLElement;
         const button = target.closest("button") as HTMLElement;
@@ -46,7 +46,7 @@ const SinglePayments = (): React.JSX.Element => {
                         <button
                             key={tab}
                             data-tab={tab}
-                            className={`relative py-2 px-2 text-base font-semibold transition-colors duration-200 cursor-pointer ${activeTab === tab
+                            className={`relative py-2 px-2 text-base max-tab:text-sm max-mdPhone:text-xs font-semibold transition-colors duration-200 cursor-pointer ${activeTab === tab
                                 ? "text-[#2563eb]"
                                 : "text-gray-500 hover:text-[#2563eb]"
                                 }`}
@@ -86,7 +86,8 @@ const SinglePayments = (): React.JSX.Element => {
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="pt-2"
                 >
-                    {activeTab === "my-accounts" ? <DestinationForm /> : activeTab === "lightway-accounts" ? <LightwayAccount/> : "To Other Banks"}
+                    {activeTab === "my-accounts" ? <DestinationForm />
+                        : activeTab === "lightway-accounts" ? <LightwayAccount /> : <OtherBanks />}
                 </motion.div>
             </AnimatePresence>
 
