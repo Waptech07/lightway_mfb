@@ -31,7 +31,7 @@ const Dashboard = (): React.JSX.Element => {
         </div>
 
         {/* Balance Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-0 gap-6">
+        <div className="flex flex-col md:flex-row w-full gap-6">
           <DashboardBalance
             availableBalance={50999.0}
             ledgerBalance={50899.0}
@@ -75,7 +75,7 @@ const Dashboard = (): React.JSX.Element => {
           />
         </div>
       </section>
-      <section className="flex gap-6 flex-wrap">
+      <section className="space-y-10 flex md:flex-row flex-col gap-x-6">
         <RecentTransactions />
         <PendingTransactions />
       </section>
