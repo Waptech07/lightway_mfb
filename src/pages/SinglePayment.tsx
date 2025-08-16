@@ -3,34 +3,11 @@ import Header from '@/components/Header'
 import AvailableBalance from '@/components/AvailableBalance'
 import DestinationForm from '@/components/single-payment/DestinationForm'
 import { motion, AnimatePresence } from "framer-motion";
+import LightwayAccForm from '@/components/single-payment/LightwayAccForm';
+import LightwayAccount from '@/components/single-payment/LightwayAccount';
 
 const SinglePayments = (): React.JSX.Element => {
-    type Tab = {
-        id: string;
-        label: string;
-        value: string;
-    }[]
-    const tabs: Tab = [
-        {
-            id: 'my-accounts',
-            label: 'To My Accounts',
-            value: 'my-accounts'
-        },
-        {
-            id: 'lightway-accounts',
-            label: 'To Lightway Accounts',
-            value: 'lightway-accounts'
-        },
-        {
-            id: 'other-banks',
-            label: 'To Other Banks',
-            value: 'other-banks'
-        }
-    ];
-    const [showTabs, setShowTabs] = useState<string>(tabs[0].value);
-    // const handleTabChange = (value: string) => {
-    //     setShowTabs(value);
-    // }
+
     const [activeTab, setActiveTab] = useState<"my-accounts" | "lightway-accounts" | "other-banks">("my-accounts");
     const [indicatorWidth, setIndicatorWidth] = useState(0);
     const [indicatorLeft, setIndicatorLeft] = useState(0);
@@ -109,7 +86,7 @@ const SinglePayments = (): React.JSX.Element => {
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="pt-2"
                 >
-                    {activeTab === "my-accounts" ? <DestinationForm /> : <>ho</>}
+                    {activeTab === "my-accounts" ? <DestinationForm /> : activeTab === "lightway-accounts" ? <LightwayAccount/> : "To Other Banks"}
                 </motion.div>
             </AnimatePresence>
 

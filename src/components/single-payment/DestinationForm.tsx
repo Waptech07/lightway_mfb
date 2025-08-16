@@ -5,7 +5,7 @@ import { TbCurrencyNaira } from "react-icons/tb";
 import { LuMessageSquareText } from "react-icons/lu";
 import { LiaUser } from "react-icons/lia";
 import { SelectItem, Select, SelectContent, SelectTrigger, SelectValue, } from '@/components/ui/select';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 const DestinationForm = (): React.JSX.Element => {
     return (
         <form className="flex flex-col gap-4 pt-9 w-96">
