@@ -32,7 +32,7 @@ const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: 
     };
     return (
         <div
-            className="w-full flex justify-between border-2 border-primary/30 rounded-xl p-4 md:p-6 bg-cover bg-center relative overflow-hidden"
+            className="w-full flex max-[470px]:flex-col max-[470px]:gap-2 justify-between border-2 border-primary/30 rounded-xl p-4 md:p-6 bg-cover bg-center relative overflow-hidden"
             style={{ backgroundImage: `url(${bg})` }}
         >
             <div className="flex flex-col gap-4">
@@ -74,7 +74,7 @@ const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: 
 
             </div>
             <Select>
-                <SelectTrigger className="bg-primary [&_svg:not([class*='text-'])]:text-white  data-[placeholder]:text-white">
+                <SelectTrigger className="bg-primary max-mdPhone:text-xs max-[470px]:w-full [&_svg:not([class*='text-'])]:text-white  data-[placeholder]:text-white">
                     <SelectValue placeholder="Choose an Account" />
                 </SelectTrigger>
 
