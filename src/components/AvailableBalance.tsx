@@ -3,7 +3,7 @@ import bg from "@/assets/card-bg.png";
 import { PiEye, PiEyeSlash } from "react-icons/pi";
 import { FaRegCopy } from "react-icons/fa6";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-// import { formatCurrency } from '@/utils/formatCurrency'; // Assuming you have a utility function for formatting currency
+import formatCurrency from '@/lib/formatCurrency';
 
 const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: string, availableBalance: number }):React.JSX.Element => {
 
@@ -18,15 +18,7 @@ const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: 
             console.error("Failed to copy: ", err);
         }
     };
-    // Format currency values
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat("en-NG", {
-            style: "currency",
-            currency: "NGN",
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        }).format(value);
-    };
+  
     const toggleBalanceVisibility = () => {
         setShowBalance((prev) => !prev);
     };

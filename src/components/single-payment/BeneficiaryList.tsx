@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '../ui/button';
 import { TbRepeat } from "react-icons/tb";
+import formatCurrency from '@/lib/formatCurrency';
 const BeneficiaryList = (): React.JSX.Element => {
 
   const users = [
@@ -22,14 +23,6 @@ const BeneficiaryList = (): React.JSX.Element => {
       initials: "CU", accountNumber: "4567890123", amount: 150000.25
     },
   ];
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
-  };
 
   return (
     <div className='mt-2   '>

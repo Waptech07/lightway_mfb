@@ -3,12 +3,19 @@ import { Button } from '@/components/ui/button'
 import { IoIosArrowBack } from "react-icons/io";
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { DataTable } from '@/components/dashboard/DataTable';
-
 const DashBoardViewAll = (): React.JSX.Element => {
     const navigate = useNavigate();
-
-    const data = [
+    type Account = {
+        id: string;
+        name: string;
+        accountNumber: string;
+        availableBalance: number;
+        ledgerBalance: number;
+        blockedFunds: number;
+        accountType: string;
+        initials: string;
+    }
+    const data: Account[] = [
         {
             id: "1",
             name: "Enoobong George",
@@ -17,6 +24,7 @@ const DashBoardViewAll = (): React.JSX.Element => {
             ledgerBalance: 250000,
             blockedFunds: 2000,
             accountType: "Current",
+            initials: "EG",
         },
         {
             id: "2",
@@ -26,6 +34,7 @@ const DashBoardViewAll = (): React.JSX.Element => {
             ledgerBalance: 300000,
             blockedFunds: 3060,
             accountType: "Savings",
+            initials: "AT",
         },
         {
             id: "3",
@@ -35,17 +44,280 @@ const DashBoardViewAll = (): React.JSX.Element => {
             ledgerBalance: 350000,
             blockedFunds: 5530,
             accountType: "Savings",
+            initials: "KS",
+        },
+        {
+            id: "4",
+            name: "Fatima Bello",
+            accountNumber: "3002930597",
+            availableBalance: 120000,
+            ledgerBalance: 120000,
+            blockedFunds: 1000,
+            accountType: "Current",
+            initials: "FB",
+        },
+        {
+            id: "5",
+            name: "John Doe",
+            accountNumber: "3002930598",
+            availableBalance: 50000,
+            ledgerBalance: 50000,
+            blockedFunds: 500,
+            accountType: "Savings",
+            initials: "JD",
+        },
+        {
+            id: "6",
+            name: "Mary Johnson",
+            accountNumber: "3002930599",
+            availableBalance: 80000,
+            ledgerBalance: 80000,
+            blockedFunds: 800,
+            accountType: "Current",
+            initials: "MJ",
+        },
+        {
+            id: "7",
+            name: "Samuel Okoro",
+            accountNumber: "3002930600",
+            availableBalance: 95000,
+            ledgerBalance: 95000,
+            blockedFunds: 950,
+            accountType: "Savings",
+            initials: "SO",
+        },
+        {
+            id: "8",
+            name: "Linda Eze",
+            accountNumber: "3002930601",
+            availableBalance: 110000,
+            ledgerBalance: 110000,
+            blockedFunds: 1100,
+            accountType: "Current",
+            initials: "LE",
+        },
+        {
+            id: "9",
+            name: "Peter Obi",
+            accountNumber: "3002930602",
+            availableBalance: 200000,
+            ledgerBalance: 200000,
+            blockedFunds: 2000,
+            accountType: "Savings",
+            initials: "PO",
+        },
+        {
+            id: "10",
+            name: "Grace Mensah",
+            accountNumber: "3002930603",
+            availableBalance: 175000,
+            ledgerBalance: 175000,
+            blockedFunds: 1750,
+            accountType: "Current",
+            initials: "GM",
+        },
+        {
+            id: "11",
+            name: "Ahmed Musa",
+            accountNumber: "3002930604",
+            availableBalance: 220000,
+            ledgerBalance: 220000,
+            blockedFunds: 2200,
+            accountType: "Savings",
+            initials: "AM",
+        },
+        {
+            id: "12",
+            name: "Chinwe Nwosu",
+            accountNumber: "3002930605",
+            availableBalance: 130000,
+            ledgerBalance: 130000,
+            blockedFunds: 1300,
+            accountType: "Current",
+            initials: "CN",
+        },
+        {
+            id: "13",
+            name: "Kwame Boateng",
+            accountNumber: "3002930606",
+            availableBalance: 90000,
+            ledgerBalance: 90000,
+            blockedFunds: 900,
+            accountType: "Savings",
+            initials: "KB",
+        },
+        {
+            id: "14",
+            name: "Sarah Williams",
+            accountNumber: "3002930607",
+            availableBalance: 160000,
+            ledgerBalance: 160000,
+            blockedFunds: 1600,
+            accountType: "Current",
+            initials: "SW",
+        },
+        {
+            id: "15",
+            name: "David Brown",
+            accountNumber: "3002930608",
+            availableBalance: 140000,
+            ledgerBalance: 140000,
+            blockedFunds: 1400,
+            accountType: "Savings",
+            initials: "DB",
+        },
+        {
+            id: "16",
+            name: "Esther Akpan",
+            accountNumber: "3002930609",
+            availableBalance: 155000,
+            ledgerBalance: 155000,
+            blockedFunds: 1550,
+            accountType: "Current",
+            initials: "EA",
+        },
+        {
+            id: "17",
+            name: "Paul Smith",
+            accountNumber: "3002930610",
+            availableBalance: 180000,
+            ledgerBalance: 180000,
+            blockedFunds: 1800,
+            accountType: "Savings",
+            initials: "PS",
+        },
+        {
+            id: "18",
+            name: "Ngozi Okafor",
+            accountNumber: "3002930611",
+            availableBalance: 210000,
+            ledgerBalance: 210000,
+            blockedFunds: 2100,
+            accountType: "Current",
+            initials: "NO",
+        },
+        {
+            id: "19",
+            name: "James King",
+            accountNumber: "3002930612",
+            availableBalance: 125000,
+            ledgerBalance: 125000,
+            blockedFunds: 1250,
+            accountType: "Savings",
+            initials: "JK",
+        },
+        {
+            id: "20",
+            name: "Blessing Uche",
+            accountNumber: "3002930613",
+            availableBalance: 135000,
+            ledgerBalance: 135000,
+            blockedFunds: 1350,
+            accountType: "Current",
+            initials: "BU",
+        },
+        {
+            id: "21",
+            name: "Henry Ford",
+            accountNumber: "3002930614",
+            availableBalance: 145000,
+            ledgerBalance: 145000,
+            blockedFunds: 1450,
+            accountType: "Savings",
+            initials: "HF",
+        },
+        {
+            id: "22",
+            name: "Victoria Adams",
+            accountNumber: "3002930615",
+            availableBalance: 155000,
+            ledgerBalance: 155000,
+            blockedFunds: 1550,
+            accountType: "Current",
+            initials: "VA",
+        },
+        {
+            id: "23",
+            name: "Emeka Nwankwo",
+            accountNumber: "3002930616",
+            availableBalance: 165000,
+            ledgerBalance: 165000,
+            blockedFunds: 1650,
+            accountType: "Savings",
+            initials: "EN",
+        },
+        {
+            id: "24",
+            name: "Ruth Adeyemi",
+            accountNumber: "3002930617",
+            availableBalance: 175000,
+            ledgerBalance: 175000,
+            blockedFunds: 1750,
+            accountType: "Current",
+            initials: "RA",
+        },
+        {
+            id: "25",
+            name: "Ibrahim Lawal",
+            accountNumber: "3002930618",
+            availableBalance: 185000,
+            ledgerBalance: 185000,
+            blockedFunds: 1850,
+            accountType: "Savings",
+            initials: "IL",
+        },
+        {
+            id: "26",
+            name: "Chidera Obi",
+            accountNumber: "3002930619",
+            availableBalance: 195000,
+            ledgerBalance: 195000,
+            blockedFunds: 1950,
+            accountType: "Current",
+            initials: "CO",
+        },
+        {
+            id: "27",
+            name: "Musa Abdullahi",
+            accountNumber: "3002930620",
+            availableBalance: 205000,
+            ledgerBalance: 205000,
+            blockedFunds: 2050,
+            accountType: "Savings",
+            initials: "MA",
+        },
+        {
+            id: "28",
+            name: "Helen Osei",
+            accountNumber: "3002930621",
+            availableBalance: 215000,
+            ledgerBalance: 215000,
+            blockedFunds: 2150,
+            accountType: "Current",
+            initials: "HO",
+        },
+        {
+            id: "29",
+            name: "Tunde Bakare",
+            accountNumber: "3002930622",
+            availableBalance: 225000,
+            ledgerBalance: 225000,
+            blockedFunds: 2250,
+            accountType: "Savings",
+            initials: "TB",
+        },
+        {
+            id: "30",
+            name: "Adaobi Nnamdi",
+            accountNumber: "3002930623",
+            availableBalance: 235000,
+            ledgerBalance: 235000,
+            blockedFunds: 2350,
+            accountType: "Current",
+            initials: "AN",
         },
     ]
-    const columns = [
-        { header: "Account Name", accessorKey: "name" },
-        { header: "Account Number", accessorKey: "accountNumber" },
-        { header: "Available Balance", accessorKey: "availableBalance" },
-        { header: "Ledger Balance", accessorKey: "ledgerBalance" },
-        { header: "Blocked Funds", accessorKey: "blockedFunds" },
-        { header: "Account Type", accessorKey: "accountType" },
 
-    ]
     return (
         <div className='text-left font-sf-pro'>
 
@@ -53,10 +325,6 @@ const DashBoardViewAll = (): React.JSX.Element => {
             <Button className='mb-4 w-20' size={"sm"} onClick={() => navigate(-1)}>
                 <IoIosArrowBack />   Back
             </Button>
-            <DataTable
-                data={data}
-                columns={columns}
-            />
         </div>
     )
 }

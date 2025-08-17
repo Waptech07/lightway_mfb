@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import bg from "@/assets/card-bg.png";
 import { PiEye, PiEyeSlash } from "react-icons/pi";
 import { FaRegCopy } from "react-icons/fa6";
+import formatCurrency from "@/lib/formatCurrency";
 
 interface DashboardBalanceProps {
   availableBalance: number;
@@ -18,16 +19,6 @@ const DashboardBalance: React.FC<DashboardBalanceProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
-
-  // Format currency values
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
-  };
 
   const handleCopy = async () => {
     try {

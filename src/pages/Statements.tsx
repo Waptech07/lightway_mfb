@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "@/components/Header";
+import formatCurrency from "@/lib/formatCurrency";
 
 interface Account {
   id: string;
@@ -55,13 +56,6 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
 
   const handleCopy = async () => {
     try {
