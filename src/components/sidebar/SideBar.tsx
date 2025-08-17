@@ -278,12 +278,12 @@ export default function SideBar({
                       aria-haspopup={item.subItems ? "menu" : undefined}
                       aria-expanded={item.subItems ? isExpanded : undefined}
                       onClick={() => {
-                        if (item.subItems) {
-                          toggleDropdown(item.name.toLowerCase());
-                        } else {
-                          navigateTo(item.path);
-                          if (isMobileOrTablet && !isCollapsed) toggleSidebar();
-                        }
+                        // if (item.subItems) {
+                        //   toggleDropdown(item.name.toLowerCase());
+                        // } else {
+                        navigateTo(item.path);
+                        if (isMobileOrTablet && !isCollapsed) toggleSidebar();
+                        // }
                       }}
                       onKeyDown={(e) => handleKeyDown(e, item)}
                       className={`cursor-pointer flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${
