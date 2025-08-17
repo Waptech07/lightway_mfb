@@ -48,7 +48,7 @@ const DashboardBalance: React.FC<DashboardBalanceProps> = ({
       className="w-full border-2 border-primary/30 rounded-xl p-4 md:p-6 flex flex-col gap-6 md:gap-8 bg-cover bg-center relative overflow-hidden"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      <div className="flex flex-col sm:flex-row text-left justify-between gap-4 z-10">
+      <div className="flex flex-col flex-wrap sm:flex-row text-left justify-between gap-4 z-10">
         <div>
           <h3 className="text-sm font-normal text-gray-600">
             Available Balance

@@ -8,25 +8,30 @@ import { HiOutlineMenu } from "react-icons/hi";
 export default function MainLayout() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Check if mobile on mount and resize
+  // Check device type on mount and resize
   useEffect(() => {
-    const checkIfMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
+    const checkDevice = () => {
+      const width = window.innerWidth;
+      const mobile = width < 768;
+      const tablet = width >= 768 && width < 960;
 
-      // Collapse sidebar on mobile by default
-      if (mobile) {
+      setIsMobile(mobile);
+      setIsTablet(tablet);
+
+      // Collapse sidebar on mobile/tablet by default
+      if (mobile || tablet) {
         setIsCollapsed(true);
       }
     };
 
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
 
-    return () => window.removeEventListener("resize", checkIfMobile);
+    return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
   const toggleSidebar = () => {
@@ -42,36 +47,40 @@ export default function MainLayout() {
     }
   };
 
+  const isMobileOrTablet = isMobile || isTablet;
+
   return (
     <div className="flex h-screen">
-      {/* Mobile Overlay Backdrop */}
+      {/* Mobile/Tablet Overlay Backdrop */}
       <AnimatePresence>
-        {isMobile && !isCollapsed && (
+        {isMobileOrTablet && !isCollapsed && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/30 z-40 md:hidden"
+            className="fixed inset-0 bg-black/30 z-40"
             onClick={toggleSidebar}
           />
         )}
       </AnimatePresence>
 
-      {(!isMobile || (isMobile && !isCollapsed)) && (
+      {/* Always show sidebar on desktop/tablet, show when expanded on mobile */}
+      {(!isMobile || !isCollapsed) && (
         <SideBar
           isCollapsed={isCollapsed}
           activePath={location.pathname}
           navigateTo={navigateTo}
           toggleSidebar={toggleSidebar}
           isMobile={isMobile}
+          isTablet={isTablet}
         />
       )}
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto flex flex-col">
-        <div className="w-full flex flex-row justify-between px-6">
+        <div className="w-full flex flex-row justify-between px-6 bg-white">
           <AnimatePresence>
-            {isCollapsed && (
+            {(isCollapsed || isTablet) && (
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -84,7 +93,7 @@ export default function MainLayout() {
             )}
           </AnimatePresence>
 
-          {/* Collapse Button for mobile */}
+          {/* Collapse Button for mobile*/}
           {isMobile && isCollapsed && (
             <button
               title="Toggle sidebar"
@@ -98,7 +107,7 @@ export default function MainLayout() {
         </div>
 
         {/* Page Content */}
-        <div className="p-6 flex-1">
+        <div className="p-6 flex-1 bg-white">
           <Outlet />
         </div>
       </div>

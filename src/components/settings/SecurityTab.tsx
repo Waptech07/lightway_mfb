@@ -299,7 +299,7 @@ const SecurityTab = () => {
                       title="Copy to clipboard"
                     >
                       <FaRegCopy className="text-white h-4 w-4" />
-                      <p className="bg-white text-black px-2 py-1 rounded-sm text-sm sm:text-base truncate max-w-[180px]">
+                      <p className="bg-[#FAFAFA] text-black px-2 py-1 rounded-sm text-sm sm:text-base truncate max-w-[180px]">
                         {copied ? "Copied!" : selectedAccount.accountNumber}
                       </p>
                     </div>
@@ -355,7 +355,7 @@ const SecurityTab = () => {
                   <label className="text-sm font-medium mb-2">
                     New Transaction Limit
                   </label>
-                  <div className="flex items-center bg-white rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
+                  <div className="flex items-center bg-[#FAFAFA] rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
                     <div className="bg-gray-200 px-3 py-2.5">
                       <FaBusinessTime className="w-5 h-5 text-gray-600" />
                     </div>
@@ -380,7 +380,7 @@ const SecurityTab = () => {
                   <label className="text-sm font-medium mb-2">
                     Transaction Pin
                   </label>
-                  <div className="flex items-center bg-white rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
+                  <div className="flex items-center bg-[#FAFAFA] rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
                     <div className="bg-gray-200 px-3 py-2.5">
                       <FaLock className="w-5 h-5 text-gray-600" />
                     </div>
@@ -428,13 +428,13 @@ const SecurityTab = () => {
               </p>
             </div>
             <div className="md:w-3/4 text-left">
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 w-full">
+              <div className="grid grid-cols-1 tabmd:grid-cols-2 flex-wrap gap-x-10 gap-y-6 w-full">
                 {/* Old Password */}
                 <div className="flex flex-col">
                   <label className="text-sm font-medium mb-2">
                     Old Password
                   </label>
-                  <div className="flex items-center bg-white rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
+                  <div className="flex items-center bg-[#FAFAFA] rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
                     <div className="bg-gray-200 px-3 py-2.5">
                       <FaLockOpen className="w-5 h-5 text-gray-600" />
                     </div>
@@ -464,7 +464,7 @@ const SecurityTab = () => {
                   <label className="text-sm font-medium mb-2">
                     New Password
                   </label>
-                  <div className="flex items-center bg-white rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
+                  <div className="flex items-center bg-[#FAFAFA] rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
                     <div className="bg-gray-200 px-3 py-2.5">
                       <FaLock className="w-5 h-5 text-gray-600" />
                     </div>
@@ -494,7 +494,7 @@ const SecurityTab = () => {
                   <label className="text-sm font-medium mb-2">
                     Confirm Password
                   </label>
-                  <div className="flex items-center bg-white rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
+                  <div className="flex items-center bg-[#FAFAFA] rounded-r-lg rounded-l-md overflow-hidden w-full max-w-md">
                     <div className="bg-gray-200 px-3 py-2.5">
                       <FaLock className="w-5 h-5 text-gray-600" />
                     </div>

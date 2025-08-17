@@ -34,6 +34,7 @@ interface SideBarProps {
   navigateTo: (path: string) => void;
   toggleSidebar: () => void;
   isMobile: boolean;
+  isTablet: boolean;
 }
 
 export default function SideBar({
@@ -42,10 +43,13 @@ export default function SideBar({
   navigateTo,
   toggleSidebar,
   isMobile,
+  isTablet,
 }: SideBarProps) {
   const [transferOpen, setTransferOpen] = useState(false);
   const [requestsOpen, setRequestsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
+
+  const isMobileOrTablet = isMobile || isTablet;
 
   // Memoize menu items to prevent recreating on every render
   const topMenuItems = useMemo<MenuItem[]>(
@@ -173,7 +177,7 @@ export default function SideBar({
     if (key === "Enter" || key === " ") {
       e.preventDefault();
       navigateTo(item.path);
-      if (isMobile && !isCollapsed) toggleSidebar();
+      if (isMobileOrTablet && !isCollapsed) toggleSidebar();
     } else if (
       !isSubItem &&
       "subItems" in item &&
@@ -184,23 +188,33 @@ export default function SideBar({
       toggleDropdown(item.name.toLowerCase());
     } else if (key === "Escape") {
       e.preventDefault();
-      if (isMobile && !isCollapsed) toggleSidebar();
+      if (isMobileOrTablet && !isCollapsed) toggleSidebar();
     }
   };
-// bg-[#FAFAFA]
+
+  // Calculate sidebar width based on device
+  const getSidebarWidth = () => {
+    if ((isMobile || isTablet) && !isCollapsed) return "100%";
+    return isCollapsed ? 80 : 272;
+  };
+
   return (
     <motion.aside
-      className={`bg-[rgba(246,246,246,1)] text-[#050C82] flex flex-col h-full w-full px-3 relative 
-        ${isMobile && !isCollapsed ? "fixed inset-0 z-50 shadow-xl" : ""}`}
+      className={`bg-[#FAFAFA] text-[#050C82] flex flex-col h-full w-full px-3 relative 
+             ${
+               (isMobile || isTablet) && !isCollapsed
+                 ? "fixed inset-0 z-50 shadow-xl"
+                 : ""
+             }`}
       initial={false}
       animate={{
-        width: isMobile && !isCollapsed ? "100%" : isCollapsed ? 80 : 272,
+        width: getSidebarWidth(),
       }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       aria-label="Main navigation"
     >
-      {/* Mobile Close Button */}
-      {isMobile && !isCollapsed && (
+      {/* Mobile/Tablet Close Button */}
+      {isMobileOrTablet && !isCollapsed && (
         <button
           title="Close sidebar"
           onClick={toggleSidebar}
@@ -216,7 +230,7 @@ export default function SideBar({
         onClick={toggleSidebar}
         className={`absolute cursor-pointer top-4 z-20 text-[#050C82] p-2 rounded-full hover:bg-[#050C82]/10 transition-transform ${
           isCollapsed ? "left-1/2 transform -translate-x-1/2" : "right-4"
-        } ${isMobile && !isCollapsed ? "hidden" : ""}`}
+        } ${isMobileOrTablet && !isCollapsed ? "hidden" : ""}`}
         aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         {isCollapsed ? (
@@ -241,7 +255,6 @@ export default function SideBar({
         </AnimatePresence>
       </div>
 
-      {/* Top Menu Items */}
       {/* Top Menu Items */}
       <nav className="flex-1 py-4 space-y-1">
         <ul className="space-y-1" role="menu">
@@ -269,7 +282,7 @@ export default function SideBar({
                           toggleDropdown(item.name.toLowerCase());
                         } else {
                           navigateTo(item.path);
-                          if (isMobile && !isCollapsed) toggleSidebar();
+                          if (isMobileOrTablet && !isCollapsed) toggleSidebar();
                         }
                       }}
                       onKeyDown={(e) => handleKeyDown(e, item)}
@@ -366,7 +379,7 @@ export default function SideBar({
                                 role="menuitem"
                                 onClick={() => {
                                   navigateTo(subItem.path);
-                                  if (isMobile) toggleSidebar();
+                                  if (isMobileOrTablet) toggleSidebar();
                                 }}
                                 onKeyDown={(e) =>
                                   handleKeyDown(e, subItem, true)
@@ -410,12 +423,12 @@ export default function SideBar({
                   role="menuitem"
                   onClick={() => {
                     navigateTo(item.path);
-                    if (isMobile && !isCollapsed) toggleSidebar();
+                    if (isMobileOrTablet && !isCollapsed) toggleSidebar();
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       navigateTo(item.path);
-                      if (isMobile && !isCollapsed) toggleSidebar();
+                      if (isMobileOrTablet && !isCollapsed) toggleSidebar();
                     }
                   }}
                   className={`flex cursor-pointer items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${

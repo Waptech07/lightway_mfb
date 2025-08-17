@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import cardBg from "@/assets/card-bg.png";
 import { FaRegCopy } from "react-icons/fa6";
 import { PiEye, PiEyeSlash, PiTrashBold } from "react-icons/pi";
@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarDays, ChevronDown } from "lucide-react";
+import { CalendarDays, ChevronDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import DatePicker from "react-datepicker";
@@ -22,6 +22,15 @@ interface Account {
   availableBalance: number;
   accountName: string;
   bankName: string;
+}
+
+interface Transaction {
+  id: string;
+  date: Date;
+  description: string;
+  amount: string;
+  rawAmount: number;
+  balance: number;
 }
 
 interface StatementsProps {
@@ -38,8 +47,13 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
     return date;
   });
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-NG", {
@@ -71,7 +85,6 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
 
     // Simulate API call
     try {
-      // In a real app, this would be an actual API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Generate mock transactions based on date range
@@ -82,7 +95,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
       );
 
       setTransactions(mockTransactions);
-      console.log("Fetched transactions:", mockTransactions);
+      setCurrentPage(1); // Reset to first page when new search
     } catch (error) {
       console.error("Failed to fetch transactions:", error);
     } finally {
@@ -134,7 +147,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
       type="button"
     >
       <CalendarDays className="text-gray-400 mr-2 w-4 h-4" />
-      <span className="appearance-none w-full bg-transparent outline-none text-left">
+      <span className="appearance-none w-full bg-transparent outline-none text-left font-mono">
         {value}
       </span>
       <ChevronDown className="text-gray-400 absolute right-3 pointer-events-none w-4 h-4" />
@@ -193,6 +206,82 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
     }
 
     return transactions;
+  };
+
+  // Calculate paginated transactions
+  const paginatedTransactions = useMemo(() => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    return transactions.slice(startIndex, startIndex + rowsPerPage);
+  }, [transactions, currentPage, rowsPerPage]);
+
+  // Update total pages when transactions or rows per page change
+  useEffect(() => {
+    const total = Math.ceil(transactions.length / rowsPerPage);
+    setTotalPages(total || 1);
+
+    // Reset to first page if current page is out of bounds
+    if (currentPage > total) {
+      setCurrentPage(1);
+    }
+  }, [transactions, rowsPerPage, currentPage]);
+
+  // Generate page numbers for pagination
+  const generatePageNumbers = () => {
+    if (totalPages <= 1) return [1];
+
+    const pages = [];
+    const maxPagesToShow = 5;
+    let startPage = 1;
+    let endPage = totalPages;
+
+    if (totalPages > maxPagesToShow) {
+      const half = Math.floor(maxPagesToShow / 2);
+      startPage = Math.max(1, currentPage - half);
+      endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+      if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      }
+    }
+
+    // Add first page and ellipsis if needed
+    if (startPage > 1) {
+      pages.push(1);
+      if (startPage > 2) {
+        pages.push("...");
+      }
+    }
+
+    // Add middle pages
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    // Add last page and ellipsis if needed
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pages.push("...");
+      }
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Handle rows per page change
+  const handleRowsPerPageChange = (value: string) => {
+    const rows = parseInt(value.replace(/\D/g, ""), 10);
+    if (!isNaN(rows)) {
+      setRowsPerPage(rows);
+      setCurrentPage(1); // Reset to first page
+    }
   };
 
   return (
@@ -312,11 +401,6 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
             </div>
           </div>
 
-        </div>
-        
-        <div className="flex">
-
-        </div>
           {/* Search Button */}
           <motion.button
             whileTap={{ scale: 0.95 }}
@@ -330,12 +414,13 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
           >
             {isLoading ? "Searching..." : "Search"}
           </motion.button>
+        </div>
 
         {/* Transactions Table (Hidden until search) */}
         {transactions.length > 0 && (
           <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
             <table className="min-w-full divide-y divide-gray-200 table-auto">
-              <thead className="bg-gray-100 sticky top-0 z-10">
+              <thead className="bg-gray-100 sticky top-0">
                 <tr>
                   {["Date", "Description", "Amount", "Balance"].map(
                     (header) => (
@@ -351,7 +436,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
-                {transactions.map((tx, idx) => (
+                {paginatedTransactions.map((tx, idx) => (
                   <tr
                     key={tx.id}
                     className={`transition-colors duration-150 cursor-default ${
@@ -378,6 +463,92 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {transactions.length > 0 && (
+          <div className="flex flex-wrap gap-y-4 justify-between items-center">
+            <div className="flex flex-wrap gap-4">
+              <button
+                title="navigate-left"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
+                  currentPage === 1
+                    ? "border-gray-300 text-gray-400 cursor-not-allowed"
+                    : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
+                }`}
+              >
+                <ArrowLeft size={18} />
+              </button>
+              <div className="flex items-center justify-center text-center gap-0.5">
+                {generatePageNumbers().map((page, index) =>
+                  typeof page === "number" ? (
+                    <button
+                      key={`page-${page}`}
+                      onClick={() => handlePageChange(page)}
+                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${
+                        currentPage === page
+                          ? "bg-[#050C82] text-white"
+                          : "text-black hover:bg-[#050C82] hover:text-white"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ) : (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className="w-10 h-10 text-sm font-medium text-black rounded-lg p-3"
+                    >
+                      ...
+                    </span>
+                  )
+                )}
+              </div>
+              <button
+                title="navigate-right"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
+                  currentPage === totalPages
+                    ? "border-gray-300 text-gray-400 cursor-not-allowed"
+                    : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
+                }`}
+              >
+                <ArrowRight size={18} />
+              </button>
+            </div>
+            <div>
+              <Select
+                onValueChange={handleRowsPerPageChange}
+                value={`Show ${rowsPerPage} rows`}
+              >
+                <SelectTrigger className="bg-[#050C82] border-[#050C82] text-white rounded-lg p-3 h-full">
+                  <SelectValue placeholder={`Show ${rowsPerPage} rows`} />
+                </SelectTrigger>
+                <SelectContent className="bg-[#050C82] text-white border-[#050C82]">
+                  <SelectItem
+                    value="Show 10 rows"
+                    className="text-white cursor-pointer"
+                  >
+                    Show 10 rows
+                  </SelectItem>
+                  <SelectItem
+                    value="Show 15 rows"
+                    className="text-white cursor-pointer"
+                  >
+                    Show 15 rows
+                  </SelectItem>
+                  <SelectItem
+                    value="Show 20 rows"
+                    className="text-white cursor-pointer"
+                  >
+                    Show 20 rows
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         )}
 
