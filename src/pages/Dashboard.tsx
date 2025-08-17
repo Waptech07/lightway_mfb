@@ -33,13 +33,13 @@ const Dashboard = (): React.JSX.Element => {
         {/* Balance Cards */}
         <div className="flex flex-col md:flex-row w-full gap-6">
           <DashboardBalance
-            availableBalance={50999.0}
+            AccountCard={50999.0}
             ledgerBalance={50899.0}
             blockedBalance={5999.0}
             accountNumber="3115679989"
           />
           <DashboardBalance
-            availableBalance={75000.5}
+            AccountCard={75000.5}
             ledgerBalance={73000.0}
             blockedBalance={2000.5}
             accountNumber="4102578890"

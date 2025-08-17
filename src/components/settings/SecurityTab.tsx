@@ -15,7 +15,7 @@ import ConfirmationDialog from "./ConfirmationDialog";
 interface Account {
   id: string;
   accountNumber: string;
-  availableBalance: number;
+  AccountCard: number;
   accountName: string;
   bankName: string;
   transactionLimit: number;
@@ -26,7 +26,7 @@ const mockAccounts: Account[] = [
   {
     id: "1",
     accountNumber: "3115679989",
-    availableBalance: 50999.0,
+    AccountCard: 50999.0,
     accountName: "John Doe",
     bankName: "Main Bank",
     transactionLimit: 500000,
@@ -34,7 +34,7 @@ const mockAccounts: Account[] = [
   {
     id: "2",
     accountNumber: "4112893456",
-    availableBalance: 120450.0,
+    AccountCard: 120450.0,
     accountName: "John Doe",
     bankName: "Savings Account",
     transactionLimit: 1000000,
@@ -42,7 +42,7 @@ const mockAccounts: Account[] = [
   {
     id: "3",
     accountNumber: "5678123490",
-    availableBalance: 23780.5,
+    AccountCard: 23780.5,
     accountName: "John Doe",
     bankName: "Investment Account",
     transactionLimit: 200000,
@@ -327,7 +327,7 @@ const SecurityTab = () => {
                     <p className="font-bold text-2xl sm:text-3xl flex items-center gap-2">
                       <span>
                         {showBalance
-                          ? formatCurrency(selectedAccount.availableBalance)
+                          ? formatCurrency(selectedAccount.AccountCard)
                           : "₦••••••"}
                       </span>
                       {showBalance ? (

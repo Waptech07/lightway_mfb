@@ -28,7 +28,7 @@ type Account = {
   accountName: string;
   bankName: string;
   accountNumber: string;
-  availableBalance: number;
+  AccountCard: number;
 };
 
 // Transaction type
@@ -50,21 +50,21 @@ const accounts: Account[] = [
   {
     id: "1",
     accountNumber: "3115679989",
-    availableBalance: 50999.0,
+    AccountCard: 50999.0,
     accountName: "Enoobong & Sons Business",
     bankName: "Lightway MFB",
   },
   {
     id: "2",
     accountNumber: "4102578890",
-    availableBalance: 75000.5,
+    AccountCard: 75000.5,
     accountName: "Enoobong Personal",
     bankName: "Lightway MFB",
   },
   {
     id: "3",
     accountNumber: "5500198723",
-    availableBalance: 120000.75,
+    AccountCard: 120000.75,
     accountName: "Enoobong Investment",
     bankName: "Lightway MFB",
   },
@@ -488,7 +488,7 @@ const TransactionHistory = () => {
             <p className="font-bold text-2xl sm:text-3xl flex items-center gap-2">
               <span>
                 {showBalance
-                  ? formatCurrency(selectedAccount.availableBalance)
+                  ? formatCurrency(selectedAccount.AccountCard)
                   : "₦••••••"}
               </span>
               {showBalance ? (
@@ -669,11 +669,10 @@ const TransactionHistory = () => {
             whileTap={{ scale: 0.95 }}
             onClick={handleSearch}
             disabled={isLoading}
-            className={`${
-              isLoading
+            className={`${isLoading
                 ? "bg-gray-200 cursor-not-allowed"
                 : "bg-primary/5 hover:bg-primary/15 cursor-pointer"
-            } text-primary/70 rounded-md px-6 py-2 font-medium border border-primary/70`}
+              } text-primary/70 rounded-md px-6 py-2 font-medium border border-primary/70`}
           >
             {isLoading ? "Searching..." : "Search"}
           </motion.button>
@@ -756,13 +755,12 @@ const TransactionHistory = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center justify-center mr-5">
                         <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            transaction.status === "Approved"
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${transaction.status === "Approved"
                               ? "bg-green-100 text-green-800"
                               : transaction.status === "Pending"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                          }`}
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
                         >
                           {transaction.status}
                         </span>
@@ -796,11 +794,10 @@ const TransactionHistory = () => {
                 title="navigate-left"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
-                  currentPage === 1
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${currentPage === 1
                     ? "border-gray-300 text-gray-400 cursor-not-allowed"
                     : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                }`}
+                  }`}
               >
                 <ArrowLeft size={18} />
               </button>
@@ -810,11 +807,10 @@ const TransactionHistory = () => {
                     <button
                       key={`page-${page}`}
                       onClick={() => handlePageChange(page)}
-                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${
-                        currentPage === page
+                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${currentPage === page
                           ? "bg-[#050C82] text-white"
                           : "text-black hover:bg-[#050C82] hover:text-white"
-                      }`}
+                        }`}
                     >
                       {page}
                     </button>
@@ -832,11 +828,10 @@ const TransactionHistory = () => {
                 title="navigate-right"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
-                  currentPage === totalPages
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${currentPage === totalPages
                     ? "border-gray-300 text-gray-400 cursor-not-allowed"
                     : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                }`}
+                  }`}
               >
                 <ArrowRight size={18} />
               </button>

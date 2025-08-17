@@ -1,24 +1,64 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import bg from "@/assets/card-bg.png";
 import { PiEye, PiEyeSlash } from "react-icons/pi";
 import { FaRegCopy } from "react-icons/fa6";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import formatCurrency from '@/lib/formatCurrency';
-
-const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: string, availableBalance: number }):React.JSX.Element => {
-
+type AccountCardType = {
+    accountNumber?: string, AccountCard?: number
+}
+const AccountCard = ({
+    accountNumber = '3115679989',
+    AccountCard = 50999
+}: AccountCardType): React.JSX.Element => {
+    type Account = {
+        id: string;
+        accountName: string;
+        bankName: string;
+        accountNumber: string;
+        AccountCard: number;
+    };
+    // Mock accounts
+    const accounts: Account[] = [
+        {
+            id: "1",
+            accountNumber: "3115679989",
+            AccountCard: 50999.0,
+            accountName: "Enoobong & Sons Business",
+            bankName: "Lightway MFB",
+        },
+        {
+            id: "2",
+            accountNumber: "4102578890",
+            AccountCard: 75000.5,
+            accountName: "Enoobong Personal",
+            bankName: "Lightway MFB",
+        },
+        {
+            id: "3",
+            accountNumber: "5500198723",
+            AccountCard: 120000.75,
+            accountName: "Enoobong Investment",
+            bankName: "Lightway MFB",
+        },
+    ];
     const [copied, setCopied] = useState(false);
     const [showBalance, setShowBalance] = useState(true);
     const handleCopy = async () => {
         try {
-            await navigator.clipboard.writeText(accountNumber);
+            await navigator.clipboard.writeText(accountNumber as string);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000); // Reset copied after 2s
         } catch (err) {
             console.error("Failed to copy: ", err);
         }
     };
-  
+    const [selectedAccount, setSelectedAccount] = useState<Account>();
+
+    const handleAccountChange = useCallback((accountId: string) => {
+        const account = accounts.find((acc) => acc.id === accountId);
+        if (account) setSelectedAccount(account);
+    }, []);
     const toggleBalanceVisibility = () => {
         setShowBalance((prev) => !prev);
     };
@@ -45,7 +85,7 @@ const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: 
                         </h3>
                         <p className="font-bold text-2xl md:text-3xl flex items-center gap-2">
                             <span>
-                                {showBalance ? formatCurrency(availableBalance) : "₦••••••"}
+                                {showBalance ? formatCurrency(AccountCard as number) : "₦••••••"}
                             </span>
                             {showBalance ? (
                                 <PiEyeSlash
@@ -65,19 +105,28 @@ const AvailableBalance = ({ accountNumber, availableBalance }: { accountNumber: 
 
 
             </div>
-            <Select>
-                <SelectTrigger className="bg-primary max-mdPhone:text-xs max-[470px]:w-full [&_svg:not([class*='text-'])]:text-white  data-[placeholder]:text-white">
-                    <SelectValue placeholder="Choose an Account" />
+            <Select
+                onValueChange={handleAccountChange}
+            // value={selectedAccount.id}
+            >
+                <SelectTrigger className="bg-primary text-white max-mdPhone:text-xs max-[470px]:w-full [&_svg:not([class*='text-'])]:text-white  data-[placeholder]:text-white">
+                    <SelectValue placeholder="Choose an Account" className='text-white' />
                 </SelectTrigger>
 
-                <SelectContent>
-                    <SelectItem value={accountNumber}>{accountNumber}</SelectItem>
-                    <SelectItem value={accountNumber}>{accountNumber}</SelectItem>
-                    <SelectItem value={accountNumber}>{accountNumber}</SelectItem>
+                <SelectContent className="bg-[#050C82] text-white border-[#050C82] cursor-pointer">
+                    {accounts.map((account) => (
+                        <SelectItem
+                            key={account.id}
+                            value={account.id}
+                            className="cursor-pointer"
+                        >
+                            {account.accountName} • {account.bankName}
+                        </SelectItem>
+                    ))}
                 </SelectContent>
             </Select>
         </div>
     )
 }
 
-export default AvailableBalance
+export default AccountCard

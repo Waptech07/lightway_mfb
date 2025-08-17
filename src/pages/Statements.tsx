@@ -20,7 +20,7 @@ import formatCurrency from "@/lib/formatCurrency";
 interface Account {
   id: string;
   accountNumber: string;
-  availableBalance: number;
+  AccountCard: number;
   accountName: string;
   bankName: string;
 }
@@ -83,7 +83,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
 
       // Generate mock transactions based on date range
       const mockTransactions = generateMockTransactions(
-        selectedAccount.availableBalance,
+        selectedAccount.AccountCard,
         startDate,
         endDate
       );
@@ -182,16 +182,14 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
           date: new Date(txDate),
           description:
             amount > 0
-              ? `Deposit from ${
-                  ["Client", "Partner", "Investor"][
-                    Math.floor(Math.random() * 3)
-                  ]
-                }`
-              : `Payment to ${
-                  ["Vendor", "Supplier", "Service"][
-                    Math.floor(Math.random() * 3)
-                  ]
-                }`,
+              ? `Deposit from ${["Client", "Partner", "Investor"][
+              Math.floor(Math.random() * 3)
+              ]
+              }`
+              : `Payment to ${["Vendor", "Supplier", "Service"][
+              Math.floor(Math.random() * 3)
+              ]
+              }`,
           amount: formatCurrency(amount),
           rawAmount: amount,
           balance: currentBalance,
@@ -334,7 +332,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
             <p className="font-bold text-2xl sm:text-3xl flex items-center gap-2">
               <span>
                 {showBalance
-                  ? formatCurrency(selectedAccount.availableBalance)
+                  ? formatCurrency(selectedAccount.AccountCard)
                   : "₦••••••"}
               </span>
               {showBalance ? (
@@ -400,11 +398,10 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
             whileTap={{ scale: 0.95 }}
             onClick={handleSearch}
             disabled={isLoading}
-            className={`${
-              isLoading
+            className={`${isLoading
                 ? "bg-gray-200 cursor-not-allowed"
                 : "bg-primary/5 hover:bg-primary/15 cursor-pointer"
-            } text-primary/70 rounded-md px-6 py-2 font-medium border border-primary/70`}
+              } text-primary/70 rounded-md px-6 py-2 font-medium border border-primary/70`}
           >
             {isLoading ? "Searching..." : "Search"}
           </motion.button>
@@ -433,9 +430,8 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                 {paginatedTransactions.map((tx, idx) => (
                   <tr
                     key={tx.id}
-                    className={`transition-colors duration-150 cursor-default ${
-                      idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    } hover:bg-primary/10 text-left`}
+                    className={`transition-colors duration-150 cursor-default ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      } hover:bg-primary/10 text-left`}
                   >
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">
                       {format(tx.date, "dd/MM/yyyy")}
@@ -444,9 +440,8 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                       {tx.description}
                     </td>
                     <td
-                      className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${
-                        tx.rawAmount < 0 ? "text-red-600" : "text-green-600"
-                      }`}
+                      className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${tx.rawAmount < 0 ? "text-red-600" : "text-green-600"
+                        }`}
                     >
                       {tx.amount}
                     </td>
@@ -468,11 +463,10 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                 title="navigate-left"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
-                  currentPage === 1
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${currentPage === 1
                     ? "border-gray-300 text-gray-400 cursor-not-allowed"
                     : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                }`}
+                  }`}
               >
                 <ArrowLeft size={18} />
               </button>
@@ -482,11 +476,10 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                     <button
                       key={`page-${page}`}
                       onClick={() => handlePageChange(page)}
-                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${
-                        currentPage === page
+                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${currentPage === page
                           ? "bg-[#050C82] text-white"
                           : "text-black hover:bg-[#050C82] hover:text-white"
-                      }`}
+                        }`}
                     >
                       {page}
                     </button>
@@ -504,11 +497,10 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
                 title="navigate-right"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
-                  currentPage === totalPages
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${currentPage === totalPages
                     ? "border-gray-300 text-gray-400 cursor-not-allowed"
                     : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                }`}
+                  }`}
               >
                 <ArrowRight size={18} />
               </button>
@@ -576,21 +568,21 @@ const dummyAccounts: Account[] = [
   {
     id: "1",
     accountNumber: "3115679989",
-    availableBalance: 50999.0,
+    AccountCard: 50999.0,
     accountName: "Enoobong & Sons Business",
     bankName: "Lightway MFB",
   },
   {
     id: "2",
     accountNumber: "4102578890",
-    availableBalance: 75000.5,
+    AccountCard: 75000.5,
     accountName: "Enoobong Personal",
     bankName: "Lightway MFB",
   },
   {
     id: "3",
     accountNumber: "5500198723",
-    availableBalance: 120000.75,
+    AccountCard: 120000.75,
     accountName: "Enoobong Investment",
     bankName: "Lightway MFB",
   },

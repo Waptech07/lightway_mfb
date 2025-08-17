@@ -5,14 +5,14 @@ import { FaRegCopy } from "react-icons/fa6";
 import formatCurrency from "@/lib/formatCurrency";
 
 interface DashboardBalanceProps {
-  availableBalance: number;
+  AccountCard: number;
   ledgerBalance: number;
   blockedBalance: number;
   accountNumber: string;
 }
 
 const DashboardBalance: React.FC<DashboardBalanceProps> = ({
-  availableBalance,
+  AccountCard,
   ledgerBalance,
   blockedBalance,
   accountNumber,
@@ -46,7 +46,7 @@ const DashboardBalance: React.FC<DashboardBalanceProps> = ({
           </h3>
           <p className="font-bold text-2xl md:text-3xl flex items-center gap-2">
             <span>
-              {showBalance ? formatCurrency(availableBalance) : "₦••••••"}
+              {showBalance ? formatCurrency(AccountCard) : "₦••••••"}
             </span>
             {showBalance ? (
               <PiEyeSlash

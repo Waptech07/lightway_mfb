@@ -1,10 +1,10 @@
 import React, { useState, useEffect, type MouseEvent } from 'react'
 import Header from '@/components/Header'
-import AvailableBalance from '@/components/AvailableBalance'
 import DestinationForm from '@/components/single-payment/DestinationForm'
 import { motion, AnimatePresence } from "framer-motion";
 import LightwayAccount from '@/components/single-payment/LightwayAccount';
 import OtherBanks from '@/components/single-payment/OtherBanks';
+import AccountCard from '@/components/AccountCard';
 
 const SinglePayments = (): React.JSX.Element => {
 
@@ -75,7 +75,7 @@ const SinglePayments = (): React.JSX.Element => {
                 /></div>
 
 
-            <AvailableBalance accountNumber={'3115679989'} availableBalance={50999} />
+            <AccountCard />
             {/* Tab Content */}
             <AnimatePresence mode="wait">
                 <motion.div
