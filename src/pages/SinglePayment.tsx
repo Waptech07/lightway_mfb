@@ -40,8 +40,9 @@ const SinglePayments = (): React.JSX.Element => {
             <Header header="Single Payment" detail="Quickly move funds with a single payment to any supported account." />
 
             {/* Tabs */}
-            <div className="relative mb-4">
-                <nav className="flex justify-start space-x-8">
+
+      <div className="border-b border-gray-200 mb-6 relative">
+                        <nav className="flex justify-start space-x-8">
                     {["my-accounts", "lightway-accounts", "other-banks"].map((tab) => (
                         <button
                             key={tab}
