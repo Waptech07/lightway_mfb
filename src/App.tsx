@@ -2,17 +2,17 @@ import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
+import Login from "./pages/auth/Login";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 import MainLayout from "./layouts/MainLayout";
+import Dashboard from "./pages/dashboard/Dashboard";
+import DashBoardViewAll from "./pages/dashboard/DashBoardViewAll";
+import SinglePayments from "./pages/transfer/SinglePayment";
+import BulkPayments from "./pages/transfer/BulkPayments";
+import TransactionHistory from "./pages/transaction-history/TransactionHistory";
 import Statements from "./pages/Statements";
 import Settings from "./pages/Settings";
-import SinglePayments from "./pages/SinglePayment";
-import TransactionHistory from "./pages/TransactionHistory";
-import DashBoardViewAll from "./pages/DashBoardViewAll";
-import BulkPayments from "./pages/BulkPayments";
 
 function App(): React.JSX.Element {
   return (
@@ -34,11 +34,9 @@ function App(): React.JSX.Element {
           <Route
             path="/transfer/single-payments"
             element={<SinglePayments />}
-          /> <Route
-          path="/transfer/bulk-payments"
-          element={<BulkPayments />} />
+          />
+          <Route path="/transfer/bulk-payments" element={<BulkPayments />} />
         </Route>
-       
       </Routes>
     </>
   );

@@ -100,7 +100,12 @@ const SecurityTab = () => {
   }, [selectedAccount]);
 
   const formatCurrency = useCallback((value: number) => {
-    return formatCurrency(value);
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
   }, []);
 
   const handleCopy = async (text: string) => {
@@ -303,7 +308,7 @@ const SecurityTab = () => {
                     <div className="min-w-[150px] w-full sm:w-auto">
                       <Select
                         onValueChange={handleAccountChange}
-                        value={selectedAccount.id}
+                        // value={selectedAccount.id}
                       >
                         <SelectTrigger className="bg-[#050C82] border-[#050C82] text-white [&>svg]:text-white w-full sm:w-auto">
                           <SelectValue placeholder="Choose an Account" />

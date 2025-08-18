@@ -1,14 +1,12 @@
-import React, { useState, useEffect, type MouseEvent } from 'react'
-import Header from '@/components/Header'
-import DestinationForm from '@/components/single-payment/DestinationForm'
-import { motion, AnimatePresence } from "framer-motion";
-import LightwayAccount from '@/components/single-payment/LightwayAccount';
-import OtherBanks from '@/components/single-payment/OtherBanks';
+import React, { useEffect, useState } from 'react'
 import AccountCard from '@/components/AccountCard';
+import Header from '@/components/Header'
+import LightwayAccount from '@/components/transfer/bulk-payment/LightWayAccount';
+import OtherBanks from '@/components/transfer/bulk-payment/OtherBanks';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const SinglePayments = (): React.JSX.Element => {
-
-    const [activeTab, setActiveTab] = useState<"my-accounts" | "lightway-accounts" | "other-banks">("my-accounts");
+const BulkPayments = (): React.JSX.Element => {
+    const [activeTab, setActiveTab] = useState<"lightway-accounts" | "other-banks">("lightway-accounts");
     const [indicatorWidth, setIndicatorWidth] = useState(0);
     const [indicatorLeft, setIndicatorLeft] = useState(0);
 
@@ -23,7 +21,10 @@ const SinglePayments = (): React.JSX.Element => {
         }
     }, [activeTab]);
 
-    const handleTabClick = (tab: "my-accounts" | "lightway-accounts" | "other-banks", e: MouseEvent) => {
+    const handleTabClick = (
+        tab: "lightway-accounts" | "other-banks",
+        e: React.MouseEvent
+    ) => {
         setActiveTab(tab);
         const target = e.target as HTMLElement;
         const button = target.closest("button") as HTMLElement;
@@ -34,16 +35,14 @@ const SinglePayments = (): React.JSX.Element => {
         }
     };
     return (
+        <div className='text-left font-sf-pro'>
 
-        <div className="text-left font-sf-pro">
-            {/* Header Section */}
-            <Header header="Single Payment" detail="Quickly move funds with a single payment to any supported account." />
-
+            <Header header="Bulk Payments" detail="Quickly move funds with a single payment to any supported account." />
             {/* Tabs */}
-
+    
       <div className="border-b border-gray-200 mb-6 relative">
-                        <nav className="flex justify-start space-x-8">
-                    {["my-accounts", "lightway-accounts", "other-banks"].map((tab) => (
+                <nav className="flex justify-start space-x-8">
+                    {["lightway-accounts", "other-banks"].map((tab) => (
                         <button
                             key={tab}
                             data-tab={tab}
@@ -51,7 +50,7 @@ const SinglePayments = (): React.JSX.Element => {
                                 ? "text-[#2563eb]"
                                 : "text-gray-500 hover:text-[#2563eb]"
                                 }`}
-                            onClick={(e) => handleTabClick(tab as "my-accounts" | "lightway-accounts" | "other-banks", e)}
+                            onClick={(e) => handleTabClick(tab as "lightway-accounts" | "other-banks", e)}
                         >
                             {tab === "my-accounts" ? "To My Accounts" : tab === "lightway-accounts" ? "To Lightway Accounts" : "To Other Banks"}
                         </button>
@@ -75,7 +74,6 @@ const SinglePayments = (): React.JSX.Element => {
                     }}
                 /></div>
 
-
             <AccountCard />
             {/* Tab Content */}
             <AnimatePresence mode="wait">
@@ -87,13 +85,12 @@ const SinglePayments = (): React.JSX.Element => {
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="pt-2"
                 >
-                    {activeTab === "my-accounts" ? <DestinationForm />
-                        : activeTab === "lightway-accounts" ? <LightwayAccount /> : <OtherBanks />}
+                    {activeTab === "lightway-accounts" ? <LightwayAccount /> : <OtherBanks />}
                 </motion.div>
             </AnimatePresence>
 
-
-        </div>)
+        </div>
+    )
 }
 
-export default SinglePayments
+export default BulkPayments

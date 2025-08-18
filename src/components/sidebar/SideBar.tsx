@@ -65,7 +65,7 @@ export default function SideBar({
         path: "/transfer",
         subItems: [
           { name: "Single Payments", path: "/transfer/single-payments" },
-          { name: "Bulk Payments", path: "/transfer/bulk" },
+          { name: "Bulk Payments", path: "/transfer/bulk-payments" },
         ],
       },
       {
@@ -278,12 +278,13 @@ export default function SideBar({
                       aria-haspopup={item.subItems ? "menu" : undefined}
                       aria-expanded={item.subItems ? isExpanded : undefined}
                       onClick={() => {
-                        // if (item.subItems) {
-                        //   toggleDropdown(item.name.toLowerCase());
-                        // } else {
-                        navigateTo(item.path);
-                        if (isMobileOrTablet && !isCollapsed) toggleSidebar();
-                        // }
+                        if (item.subItems) {
+                          toggleDropdown(item.name.toLowerCase());
+                          isCollapsed && navigateTo(item.subItems[0].path);
+                        } else {
+                          navigateTo(item.path);
+                          if (isMobileOrTablet && !isCollapsed) toggleSidebar();
+                        }
                       }}
                       onKeyDown={(e) => handleKeyDown(e, item)}
                       className={`cursor-pointer flex items-center justify-between w-full px-4 py-3 text-left transition-colors rounded-md ${
@@ -307,7 +308,7 @@ export default function SideBar({
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.2 }}
-                            className="ml-3 font-medium"
+                            className="ml-3 text-base font-normal"
                           >
                             {item.name}
                           </motion.span>
@@ -386,7 +387,7 @@ export default function SideBar({
                                 }
                                 className={`cursor-pointer flex items-center w-full py-3 px-3 text-left transition-colors rounded-lg ${
                                   isSubItemActive(subItem.path)
-                                    ? "bg-[#050C82] text-white font-medium"
+                                    ? "bg-[#050C82] text-white"
                                     : "hover:bg-[#050C82] hover:text-white"
                                 }`}
                                 tabIndex={0}
@@ -395,7 +396,9 @@ export default function SideBar({
                                   className="flex-shrink-0 w-5 h-5 ml-4"
                                   aria-hidden="true"
                                 />
-                                <span className="ml-3">{subItem.name}</span>
+                                <span className="ml-3 text-base font-normal">
+                                  {subItem.name}
+                                </span>
                               </button>
                             </li>
                           ))}
@@ -434,7 +437,7 @@ export default function SideBar({
                   className={`flex cursor-pointer items-center w-full px-4 py-3 text-left transition-colors rounded-lg ${
                     activePath === item.path
                       ? item.name === "Logout"
-                        ? "bg-[#CC340E] text-[#CC340E] hover:text-white font-medium"
+                        ? "bg-[#CC340E] text-[#CC340E] hover:text-white"
                         : "bg-[#050C82] text-white"
                       : item.name === "Logout"
                       ? "hover:bg-[#CC340E] hover:text-white text-[#CC340E]"
@@ -455,7 +458,7 @@ export default function SideBar({
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.2 }}
-                      className="ml-3 font-medium"
+                      className="ml-3 text-base font-normal"
                     >
                       {item.name}
                     </motion.span>

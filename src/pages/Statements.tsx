@@ -308,7 +308,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
             <div className="min-w-[150px] w-full sm:w-auto">
               <Select
                 onValueChange={handleAccountChange}
-                value={selectedAccount.id}
+                // value={selectedAccount.id}
               >
                 <SelectTrigger className="bg-[#050C82] border-[#050C82] text-white [&>svg]:text-white w-full sm:w-auto">
                   <SelectValue placeholder="Choose an Account" />

@@ -64,7 +64,7 @@ export const PendingTransactions = (): React.JSX.Element => {
               key={user.id}
               role="listitem"
               tabIndex={0}
-              className="flex flex-row items-center justify-between p-3 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors border-b border-gray-100 last:border-b-0 cursor-pointer"
+              className="flex flex-row items-center justify-between py-3 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors border-b border-gray-100 last:border-b-0 cursor-pointer"
               aria-label={`${user.name}, ID ${user.id}, Amount ${user.amount}`}
             >
               <div className="flex items-center space-x-3 mb-2 sm:mb-0">
@@ -91,7 +91,7 @@ export const PendingTransactions = (): React.JSX.Element => {
 
               <div className="text-right sm:text-left sm:min-w-[100px]">
                 <p
-                  className="text-sm sm:text-base font-medium text-gray-900 truncate"
+                  className="text-sm md:text-base font-medium text-gray-900 truncate"
                   aria-label={`Amount ${user.amount}`}
                 >
                   {user.amount}
