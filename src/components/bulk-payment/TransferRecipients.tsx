@@ -29,12 +29,12 @@ const TransferRecipients = (): React.JSX.Element => {
 
   //  
   return (
-    <div className="bg-[rgba(246,246,246,1)] max-lg:w-full max-lg:min-w-full  min-w-[30rem] p-2 flex flex-col gap-2.5 rounded-lg  border-1 ">
+    <div className="bg-[rgba(246,246,246,1)] max-lg:w-full max-lg:min-w-full  min-w-[27rem] p-2 flex flex-col gap-2.5 rounded-lg  border-1 ">
 
       <div className='border-b-1 flex pb-2.5 gap-1'>
         <h2 className='text-base font-semibold'>Transfer Recipients</h2>
         {/* bg-white text-black border-1 border-gray-300 rounded-md px-2 py-1 text-sm */}
-        <Badge className='text-xs rounded-lg px-2 font-semibold bg-[rgba(255,65,18,1)]'>4</Badge>
+        <Badge className='text-xs ml-1 rounded-xl w-7 h-5.5 font-semibold bg-[rgba(255,65,18,1)]'>4</Badge>
       </div>
       <div className="relative h-10 flex items-center">
         <span className='absolute  text-muted-foreground left-2'>
