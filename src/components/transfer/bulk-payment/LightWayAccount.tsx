@@ -79,7 +79,7 @@ const LightWayAccount = (): React.JSX.Element => {
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="pt-2"
                 >
-                    {activeTab === "bulk-uploads" ? <BulkUpload /> : activeTab ? <AddManually /> : <Beneficiaries />}
+                    {activeTab === "bulk-uploads" ? <BulkUpload /> : activeTab ==="add-manually" ? <AddManually /> : <Beneficiaries />}
                 </motion.div>
             </AnimatePresence>
         </div>
