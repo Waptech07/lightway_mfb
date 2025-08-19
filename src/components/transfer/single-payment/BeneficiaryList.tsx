@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { TbRepeat } from "react-icons/tb";
 import formatCurrency from '@/lib/formatCurrency';
 const BeneficiaryList = (): React.JSX.Element => {
@@ -58,10 +58,10 @@ const BeneficiaryList = (): React.JSX.Element => {
           </div>
           <Button className='max-mdPhone:text-xs bg-transparent border-primary text-primary cursor-pointer  hover:text-white border-1'>
             <TbRepeat /> <span className='max-mdPhone:hidden'>
-              
+
               Repeat Transfer
-              </span> 
-              </Button>
+            </span>
+          </Button>
         </div>
       ))}
     </div>

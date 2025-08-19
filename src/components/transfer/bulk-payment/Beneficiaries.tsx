@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Beneficiaries = () => {
+const Beneficiaries = ():React.JSX.Element => {
   return (
     <div>Beneficiaries</div>
   )

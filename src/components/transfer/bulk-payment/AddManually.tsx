@@ -1,8 +1,13 @@
 import React from 'react'
+import AddManuallyForm from './AddManuallyForm'
+import TransferRecipients from './TransferRecipients'
 
-const AddManually = () => {
+const AddManually = (): React.JSX.Element => {
   return (
-    <div>AddManually</div>
+    <div className="flex justify-between flex-wrap gap-4 max-lg:gap-6">
+      <AddManuallyForm />
+      <TransferRecipients />
+    </div>
   )
 }
 

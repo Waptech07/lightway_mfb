@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoSearch } from 'react-icons/go'
 import { Input } from '@/components/ui/input'
-import { Badge } from '../ui/badge'
+import { Badge } from '@/components/ui/badge'
 import formatCurrency from '@/lib/formatCurrency'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { BsPencilSquare } from "react-icons/bs";
