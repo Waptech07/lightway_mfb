@@ -12,9 +12,9 @@ const DestinationForm = (): React.JSX.Element => {
             <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='amount'>Select Destination Account</Label>
                 <Select>
-                    <SelectTrigger className="w-full relative pl-10">
+                    <SelectTrigger className="w-full relative pl-10  data-[placeholder]:text-muted-foreground  [&_svg:not([class*='text-'])]:text-muted-foreground" >
                         <SelectValue placeholder="Select Destination Account" />
-                        <span className='absolute left-2 text-muted-foreground'>
+                        <span className='absolute left-2'>
                             <LiaUser className='h-4 w-5' /></span>
                     </SelectTrigger>
                     <SelectContent> <SelectItem value="my-accounts">My Accounts</SelectItem>

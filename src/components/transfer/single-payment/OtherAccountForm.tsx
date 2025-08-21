@@ -25,7 +25,7 @@ const OtherAccountForm = (): React.JSX.Element => {
             <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='bank'>Receiving Account</Label>
                 <Select >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full   data-[placeholder]:text-muted-foreground  [&_svg:not([class*='text-'])]:text-muted-foreground">
                         <SelectValue placeholder="Select Bank" />
                     </SelectTrigger>
                     <SelectContent>
