@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { TbCurrencyNaira } from "react-icons/tb";
@@ -7,7 +7,36 @@ import { LiaUser } from "react-icons/lia";
 import { PiHash } from "react-icons/pi";
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectItem, SelectContent, SelectValue } from '@/components/ui/select';
+import ConfirmPaymentDialog from './ConfirmPaymentDialog';
 const OtherAccountForm = (): React.JSX.Element => {
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+    const bankTransferData = [
+        {
+            field: "Sending Account",
+            value: "3115679989"
+        },
+        {
+            field: "Account Name",
+            value: "Enoobong George"
+        },
+        {
+            field: "Amount",
+            value: "₦250,000.00"
+        },
+        {
+            field: "Beneficiary Account",
+            value: "0002638989"
+        },
+        {
+            field: "Beneficiary Name",
+            value: "Nseabasi George"
+        },
+        {
+            field: "Beneficiary Bank",
+            value: "First Bank of Nigeria"
+        }
+    ];
     return (
         <form className="flex flex-col gap-4 max-mdLap:w-full min-w-96 max-mdPhone:min-w-full">
             <div className="flex flex-col gap-2">
@@ -64,9 +93,11 @@ const OtherAccountForm = (): React.JSX.Element => {
                 </div>
 
             </div>
-            <Button className='w-50 mt-4 text-sm font-normal h-10'>
+            <Button type='button' className='w-50 mt-4 text-sm font-normal h-10' onClick={() => setOpenConfirmDialog(true)}>
                 Confirm Transaction
             </Button>
+            <ConfirmPaymentDialog setOpenDialog={setOpenConfirmDialog} openDialog={openConfirmDialog} isOtherBank={true} bankTransferData={bankTransferData} />
+
         </form>
     )
 }

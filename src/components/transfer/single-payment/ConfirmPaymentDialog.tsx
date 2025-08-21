@@ -6,36 +6,15 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Button } from '@/components/ui/button'
 import { BiTransferAlt } from "react-icons/bi";
 import { Input } from '@/components/ui/input'
-const ConfirmPaymentDialog = ({ openDialog, setOpenDialog, }: { setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, }): React.JSX.Element => {
-    const bankTransferData = [
-        {
-            field: "Sending Account",
-            value: "3115679989"
-        },
-        {
-            field: "Account Name",
-            value: "Enoobong George"
-        },
-        {
-            field: "Amount",
-            value: "₦250,000.00"
-        },
-        {
-            field: "Beneficiary Account",
-            value: "0002638989"
-        },
-        {
-            field: "Beneficiary Name",
-            value: "Nseabasi George"
-        },
-        {
-            field: "Beneficiary Bank",
-            value: "First Bank of Nigeria"
-        }
-    ];
+type ConfirmPaymentDialogPropsType ={ setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean,isOtherBank:boolean ,bankTransferData: {
+    field: string;
+    value: string;
+}[]}
+const ConfirmPaymentDialog = ({ bankTransferData,openDialog, setOpenDialog,isOtherBank }: ConfirmPaymentDialogPropsType): React.JSX.Element => {
+ 
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-            <DialogContent className='w-120   flex gap-4 flex-col' showCloseButton={false}>
+            <DialogContent className={`w-120 ${isOtherBank && "max-h-[90vh]"}  flex gap-4 flex-col`} showCloseButton={false}>
                 <DialogHeader>
                     <div className="rounded-full w-min p-2 bg-[rgba(238,239,254,1)]">
                         <div className="rounded-full w-min p-2 bg-[rgba(215,216,242,1)]">
@@ -46,13 +25,19 @@ const ConfirmPaymentDialog = ({ openDialog, setOpenDialog, }: { setOpenDialog: R
                         Confirm Transaction
                     </DialogTitle>
 
-                    <DialogDescription className=' flex text-[rgba(140,62,13,1)] text-base font-normal bg-[rgba(252,226,182,1)] py-4 px-2 rounded-lg border-1 border-[rgba(187,167,68,1)]'>
-                        <TiWarningOutline className='' size={38}/>
-                        Before sending funds, please ensure that the recipient's account details is accurate. Always double-check the beneficiary information                    </DialogDescription>
+                    <DialogDescription className='text-[rgba(140,62,13,1)] text-base font-normal bg-[rgba(252,226,182,1)] py-4 px-4 rounded-lg border-1 border-[rgba(187,167,68,1)] flex items-start gap-2'>
+
+                        <div className="flex-shrink-0 mt-0.5">
+                            <TiWarningOutline size={25} />
+                        </div>
+                        <span className="flex-1"> Before sending funds, please ensure that the recipient's account details is accurate. Always double-check the beneficiary information
+                        </span>
+                    </DialogDescription>
+
+
                 </DialogHeader>
 
-                {/* Move the content outside DialogDescription */}
-                <div className="">
+                <div className={`${isOtherBank && "flex-1 overflow-y-auto"} [&::-webkit-scrollbar]:hidden`}>
                     {bankTransferData.map((bankTransfer, id) => (
                         <div key={id} className="flex justify-between border-b-1 py-2.5 text-black border-[rgba(221,221,221,1)]">
                             <p className='text-base'>{bankTransfer.field}</p>
@@ -70,7 +55,9 @@ const ConfirmPaymentDialog = ({ openDialog, setOpenDialog, }: { setOpenDialog: R
                         <Input type="number" placeholder='Enter pin' id='transaction-pin' className='pl-8 rounded-lg max-mdPhone:text-sm' />
                     </div>
                 </div>
+                     <p className="text-red-500 text-base">Incorrect Pin</p>
                 <DialogFooter>
+               
                     <div className='flex w-full gap-2 justify-center'>
                         <Button className=' w-40 py-2 rounded-md text-sm font-semibold text-white'>
                             Confirm Transaction
@@ -88,3 +75,13 @@ const ConfirmPaymentDialog = ({ openDialog, setOpenDialog, }: { setOpenDialog: R
 }
 
 export default ConfirmPaymentDialog
+
+// scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100
+//                                hover:scrollbar-thumb-gray-400 scrollbar-thumb-rounded-full scrollbar-track-rounded-full
+//                                [&::-webkit-scrollbar-track]:bg-gray-100
+//                                [&::-webkit-scrollbar-track]:rounded-full
+//                                [&::-webkit-scrollbar-thumb]:bg-gray-300
+//                                [&::-webkit-scrollbar-thumb]:rounded-full
+//                                [&::-webkit-scrollbar-thumb]:border-transparent
+//                                [&::-webkit-scrollbar-thumb]:bg-clip-padding
+//                                hover:[&::-webkit-scrollbar-thumb]:bg-gray-400
