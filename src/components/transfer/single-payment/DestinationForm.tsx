@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { TbCurrencyNaira } from "react-icons/tb";
@@ -6,7 +6,10 @@ import { LuMessageSquareText } from "react-icons/lu";
 import { LiaUser } from "react-icons/lia";
 import { SelectItem, Select, SelectContent, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import ConfirmPaymentDialog from './ConfirmPaymentDialog';
 const DestinationForm = (): React.JSX.Element => {
+      const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    
     return (
         <form className="flex flex-col gap-4 pt-9 w-96 max-tab:w-full ">
             <div className="flex flex-col gap-2">
@@ -43,9 +46,10 @@ const DestinationForm = (): React.JSX.Element => {
                 </div>
 
             </div>
-            <Button className='w-50 mt-4 text-sm font-normal h-10'>
+            <Button type='button' className='w-50 mt-4 text-sm font-normal h-10' onClick={()=>setOpenConfirmDialog(true)}>
                 Confirm Transaction
             </Button>
+            <ConfirmPaymentDialog setOpenDialog={setOpenConfirmDialog} openDialog={openConfirmDialog}/>
         </form>
     )
 }

@@ -47,7 +47,7 @@ const LightWayAccount = (): React.JSX.Element => {
                                 }`}
                             onClick={(e) => handleTabClick(tab as "bulk-uploads" | "add-manually" | "beneficiaries", e)}
                         >
-                            {tab === "bulk-uploads" ? "Bulk Uploads" : tab === "add-manually" ? "Add Manully" : "Beneficiaries"}
+                            {tab === "bulk-uploads" ? "Bulk Uploads" : tab === "add-manually" ? "Add Manually" : "Beneficiaries"}
                         </button>
                     ))}
                 </nav>

@@ -16,7 +16,7 @@ const AddRecipientDialog = ({ openDialog, setOpenDialog, user }: { setOpenDialog
                 <DialogHeader>
                     <div className="rounded-full w-min p-2 bg-[rgba(238,239,254,1)]">
                         <div className="rounded-full w-min p-2 bg-[rgba(215,216,242,1)]">
-                            <BsPencilSquare className='text-blue text-xl' />
+                            <LiaUser className='text-primary text-xl' />
                         </div></div>
                     <DialogTitle className='text-gray-900 text-2xl font-medium'>Add Recipient</DialogTitle>
                 </DialogHeader>

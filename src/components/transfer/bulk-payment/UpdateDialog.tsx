@@ -4,7 +4,7 @@ import { TbCurrencyNaira } from 'react-icons/tb'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
 import { BsPencilSquare } from 'react-icons/bs'
-import { Input } from '../../ui/input'
+import { Input } from '@/components/ui/input'
 const UpdateDialog = ({ openDialog, setOpenDialog, user }: { setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, user: any }):React.JSX.Element => {
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog} >
@@ -12,7 +12,7 @@ const UpdateDialog = ({ openDialog, setOpenDialog, user }: { setOpenDialog: Reac
                 <DialogHeader>
                     <div className="rounded-full w-min p-2 bg-[rgba(238,239,254,1)]">
                         <div className="rounded-full w-min p-2 bg-[rgba(215,216,242,1)]">
-                            <BsPencilSquare className='text-blue text-xl' />
+                            <BsPencilSquare className='text-primary text-xl' />
                         </div></div>
                     <DialogTitle className='text-gray-900 text-2xl font-medium'>Update Recipient</DialogTitle>
                 </DialogHeader>
