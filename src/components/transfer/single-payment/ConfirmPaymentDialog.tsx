@@ -7,13 +7,14 @@ import { Button } from '@/components/ui/button'
 import { BiTransferAlt } from "react-icons/bi";
 import { Input } from '@/components/ui/input'
 type ConfirmPaymentDialogPropsType = {
-    setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, isOtherBank: boolean, bankTransferData: {
+    setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, bankTransferData: {
         field: string;
         value: string;
     }[]
 }
-const ConfirmPaymentDialog = ({ bankTransferData, openDialog, setOpenDialog, isOtherBank }: ConfirmPaymentDialogPropsType): React.JSX.Element => {
-    //   ${isOtherBank && "max-h-[90vh]"} 
+//  isOtherBank: boolean,
+const ConfirmPaymentDialog = ({ bankTransferData, openDialog, setOpenDialog, }: ConfirmPaymentDialogPropsType): React.JSX.Element => {
+    //   ${isOtherBank && "max-h-[90vh]"} isOtherBank
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogContent className={`w-120 max-h-[90vh] flex gap-4 flex-col`} showCloseButton={false}>

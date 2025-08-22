@@ -1,7 +1,21 @@
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from '@/components/ui/button'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { BsExclamationCircle } from "react-icons/bs";
-const DeleteDialog = ({ openDialog, setOpenDialog, userId }: { setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, userId: any }) => {
+
+interface DeleteDialogProps {
+  openDialog: boolean;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  userId: string | number | null;
+  onConfirm: () => void;
+}
+
+const DeleteDialog = ({ openDialog, setOpenDialog, userId, onConfirm }: DeleteDialogProps) => {
+  const handleRemove = () => {
+    onConfirm();
+    setOpenDialog(false); // Ensure dialog closes after action
+  };
+
+
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className='w-100 flex gap-8 flex-col' onOpenAutoFocus={(e) => {
@@ -19,7 +33,7 @@ const DeleteDialog = ({ openDialog, setOpenDialog, userId }: { setOpenDialog: Re
               <BsExclamationCircle className='text-red text-xl' />
             </div>  </div>
           <DialogTitle className='text-gray-900 text-lg'>Remove from Recipient List</DialogTitle>
-          <DialogDescription className='text-gray-500 text-sm font-normal'>
+          <DialogDescription className='text-[rgba(102,112,133,1)] text-sm font-normal'>
             Are you sure you want to remove this recipient from this list? You can add them back anytime.
           </DialogDescription>
         </DialogHeader>
@@ -27,7 +41,7 @@ const DeleteDialog = ({ openDialog, setOpenDialog, userId }: { setOpenDialog: Re
           <DialogClose asChild>
             <Button className='bg-gray-200 px-4 py-2 rounded-md text-sm font-semibold text- hover:bg-gray-300 flex-1'>Cancel</Button>
           </DialogClose>
-          <Button className='bg-[rgba(217,45,32,1)] hover:bg-red-500 px-4 p  y-2 rounded-md text-sm font-semibold text-white flex-1'>
+          <Button className='bg-[rgba(217,45,32,1)] hover:bg-red-500 px-4 p  y-2 rounded-md text-sm font-semibold text-white flex-1' onClick={handleRemove}>
             Remove
           </Button>
 

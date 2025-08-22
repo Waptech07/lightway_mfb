@@ -17,7 +17,7 @@ const Beneficiaries = (): React.JSX.Element => {
                     <BeneficiaryList />
                 </TabsContent>
             </Tabs>
-            </div>
+        </div>
         </>
     )
 }

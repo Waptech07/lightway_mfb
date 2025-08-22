@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 const UpdateDialog = ({ openDialog, setOpenDialog, user }: { setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, user: any }): React.JSX.Element => {
+    // console.log(user)
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}
         >
@@ -32,11 +33,11 @@ const UpdateDialog = ({ openDialog, setOpenDialog, user }: { setOpenDialog: Reac
                 <div className="">
                     <div className="flex justify-between border-b-1 py-2.5 text-black border-[rgba(221,221,221,1)]">
                         <p className='text-base'>Receiver Account Number</p>
-                        <p className='font-semibold text-base'>{user.accountNumber}</p>
+                        <p className='font-semibold text-base'>{user?.accountNumber}</p>
                     </div>
                     <div className='flex justify-between border-b-1 py-2.5 text-black border-[rgba(221,221,221,1)]'>
                         <p className='text-base'>Receiver Name</p>
-                        <p className='font-semibold text-base'>{user.name}</p>
+                        <p className='font-semibold text-base'>{user?.name}</p>
                     </div>
                 </div>
 

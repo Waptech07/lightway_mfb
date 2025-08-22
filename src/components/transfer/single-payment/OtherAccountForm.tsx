@@ -96,7 +96,7 @@ const OtherAccountForm = (): React.JSX.Element => {
             <Button type='button' className='w-50 mt-4 text-sm font-normal h-10' onClick={() => setOpenConfirmDialog(true)}>
                 Confirm Transaction
             </Button>
-            <ConfirmPaymentDialog setOpenDialog={setOpenConfirmDialog} openDialog={openConfirmDialog} isOtherBank={true} bankTransferData={bankTransferData} />
+            <ConfirmPaymentDialog setOpenDialog={setOpenConfirmDialog} openDialog={openConfirmDialog}  bankTransferData={bankTransferData} />
 
         </form>
     )
