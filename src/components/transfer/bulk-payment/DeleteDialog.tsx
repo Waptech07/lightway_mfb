@@ -9,7 +9,7 @@ interface DeleteDialogProps {
   onConfirm: () => void;
 }
 
-const DeleteDialog = ({ openDialog, setOpenDialog, userId, onConfirm }: DeleteDialogProps) => {
+const DeleteDialog = ({ openDialog, setOpenDialog, userId, onConfirm }: DeleteDialogProps):React.JSX.Element => {
   const handleRemove = () => {
     onConfirm();
     setOpenDialog(false); // Ensure dialog closes after action
@@ -31,7 +31,8 @@ const DeleteDialog = ({ openDialog, setOpenDialog, userId, onConfirm }: DeleteDi
           <div className="rounded-full w-min p-2 bg-[rgba(254,243,242,1)]">
             <div className="rounded-full w-min p-2 bg-[rgba(254,228,226,1)]">
               <BsExclamationCircle className='text-red text-xl' />
-            </div>  </div>
+            </div>  
+            </div>
           <DialogTitle className='text-gray-900 text-lg'>Remove from Recipient List</DialogTitle>
           <DialogDescription className='text-[rgba(102,112,133,1)] text-sm font-normal'>
             Are you sure you want to remove this recipient from this list? You can add them back anytime.
