@@ -6,7 +6,7 @@ import formatCurrency from '@/lib/formatCurrency'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { BsPencilSquare } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
-import UpdateDialog from './UpdateDialog'
+import UpdateDialog from '../UpdateDialog'
 import DeleteDialog from './DeleteDialog'
 
 const TransferRecipients = (): React.JSX.Element => {

@@ -51,7 +51,7 @@ const OtherAccountForm = (): React.JSX.Element => {
                     <LiaUser className='h-4 w-5' />  Select Beneficiary
                 </Button>
             </div>
-            <div className="flex flex-col gap-2">
+           <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='bank'>Receiving Account</Label>
                 <Select >
                     <SelectTrigger className="w-full   data-[placeholder]:text-muted-foreground  [&_svg:not([class*='text-'])]:text-muted-foreground">
@@ -82,7 +82,7 @@ const OtherAccountForm = (): React.JSX.Element => {
                     <Input type="number" placeholder='Enter the amount you want to send' id='amount' className='pl-8 rounded-lg max-mdPhone:text-sm' />
                 </div>
 
-            </div>
+            </div> 
             <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='naration'>Narration</Label>
                 <div className="relative h-10 flex items-center">

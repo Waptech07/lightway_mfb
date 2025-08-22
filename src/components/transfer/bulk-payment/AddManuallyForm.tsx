@@ -18,12 +18,15 @@ const AddManuallyForm = (): React.JSX.Element => {
                         <span className='absolute  text-muted-foreground left-2'>
                             <PiHash className='h-4 w-5' />
                         </span>
-                        <Input type="number" placeholder='Enter an Amount' id='receiving-account' className='pl-8 rounded-lg max-mdPhone:text-sm' />
+                        <Input type="number" placeholder='Enter an Account number' id='receiving-account' className='pl-8 rounded-lg max-mdPhone:text-sm' />
                     </div>
                     <Button className='w-40 mt-1 text-sm font-normal h-8'>
                         <LiaUser className='h-4 w-5' />  Select Beneficiary
                     </Button>
                 </div>
+               
+            </div>
+  <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='amount'>Amount</Label>
                 <div className="relative h-10 flex items-center">
                     <span className='absolute  text-muted-foreground left-2'>
@@ -31,9 +34,7 @@ const AddManuallyForm = (): React.JSX.Element => {
                     </span>
                     <Input type="number" placeholder='Enter the amount you want to send' id='amount' className='pl-8 rounded-lg max-mdPhone:text-sm' />
                 </div>
-
-            </div>
-
+</div>
             <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='accountName'>Account Name</Label>
                 <div className="relative h-10 flex items-center ">
@@ -42,7 +43,8 @@ const AddManuallyForm = (): React.JSX.Element => {
                     </span>
                     <Input type="text" placeholder='Enoobong George' id='accountName' className='pl-8 rounded-lg max-mdPhone:text-sm bg-[rgba(204,204,204,1)]' />
                 </div>
-            </div>    <div className="flex flex-col gap-2">
+            </div>  
+              <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='naration'>Narration</Label>
                 <div className="relative h-10 flex items-center">
                     <span className='absolute  text-muted-foreground left-2'>

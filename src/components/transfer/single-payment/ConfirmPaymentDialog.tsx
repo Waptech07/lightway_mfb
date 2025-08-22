@@ -29,10 +29,11 @@ const ConfirmPaymentDialog = ({ bankTransferData, openDialog, setOpenDialog, isO
 
                     <DialogDescription className='text-[rgba(140,62,13,1)] text-base font-normal bg-[rgba(252,226,182,1)] py-4 px-4 rounded-lg border-1 border-[rgba(187,167,68,1)] flex items-start gap-2'>
 
-                        <div className="flex-shrink-0 mt-0.5">
+                        <span className="flex-shrink-0 mt-0.5">
                             <TiWarningOutline size={25} />
-                        </div>
-                        <span className="flex-1"> Before sending funds, please ensure that the recipient's account details is accurate. Always double-check the beneficiary information
+                        </span>
+                        <span className="flex-1">
+                            Before sending funds, please ensure that the recipient's account details is accurate. Always double-check the beneficiary information
                         </span>
                     </DialogDescription>
 

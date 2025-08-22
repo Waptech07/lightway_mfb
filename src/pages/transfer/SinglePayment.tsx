@@ -38,7 +38,6 @@ const SinglePayments = (): React.JSX.Element => {
         <div className="text-left font-sf-pro">
             {/* Header Section */}
             <Header header="Single Payment" detail="Quickly move funds with a single payment to any supported account." />
-
             {/* Tabs */}
 
       <div className="border-b border-gray-200 mb-6 relative">
