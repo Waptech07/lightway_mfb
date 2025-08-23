@@ -17,6 +17,7 @@ import Settings from "./pages/Settings";
 function App(): React.JSX.Element {
   return (
     <>
+    
       <Toaster position="bottom-right" richColors />
       <Routes>
         <Route path="/" element={<Login />} />
