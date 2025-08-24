@@ -4,9 +4,22 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, Lock } from "lucide-react";
 import Logo from "@/assets/logo.svg";
+import { useForm, type SubmitHandler, } from 'react-hook-form';
+import { useCustomMutation } from "@/hooks/useCustomQuery";
+import { Link } from "react-router-dom";
+type LoginFormValueType = {
+  username: string;
+  password: string
+}
 
-export default function LoginForm() {
-  return (
+const LoginForm = (): React.JSX.Element => {
+  const { formState: { errors }, register, handleSubmit } = useForm<LoginFormValueType>();
+  //remember to change to appropriate route later and add error handler tomorrow
+  const { mutate, isPending, error } = useCustomMutation<LoginFormValueType, any>({ url: "auth/login", key: "login", });
+  const onSubmit: SubmitHandler<LoginFormValueType> = (data) => {
+    mutate(data);
+  };
+   return (
     // had py-12 b4
     <div className="w-full max-w-md px-8">
       {/* Logo - left aligned */}
@@ -24,7 +37,7 @@ export default function LoginForm() {
         </p>
       </div>
 
-      <form className="space-y-[26px]">
+      <form className="space-y-[26px]" onSubmit={handleSubmit(onSubmit)}>
         {/* Username Field */}
         <div>
           <Label
@@ -42,8 +55,14 @@ export default function LoginForm() {
               type="text"
               placeholder="enoobong_george"
               className="pl-11 h-[50px] border-2 border-[#050C82] rounded-lg focus-visible:ring-0 focus-visible:ring-offset-0 text-left"
-            />
+              {...register("username", {
+                required: 'Please enter your username',
+                validate: (value) => {
+                  if (value.length < 5 || value.length > 30) return "Username must be between 3-30 characters";
+                }
+              })} />
           </div>
+          <p className="text-red text-left">{errors.username?.message}</p>
         </div>
         {/* Password Field */}
         <div>
@@ -61,9 +80,17 @@ export default function LoginForm() {
               id="password"
               type="password"
               placeholder="********"
-              className="pl-11 h-[50px] border-2 border-[#050C82] rounded-lg text-left"
+              className="pl-11 h-[50px] border-2 border-[#050C82] rounded-lg text-left" {...register("password", {
+                required: "Please enter your password.", maxLength: {
+                  value: 20, message: "Password must have atleast 8-20 characters"
+                }, minLength: {
+                  value: 8, message: "Password must have atleast 8-20 characters"
+                }
+              })}
             />
           </div>
+          <p className="text-red text-left">{errors.password?.message}</p>
+
         </div>
         {/* Remember + Forgot Password */}
         <div className="flex items-center justify-between pt-[2px]">
@@ -73,19 +100,20 @@ export default function LoginForm() {
               Remember me
             </label>
           </div>
-          <a
-            href="#"
+          <Link
+            to="/forgot-password"
             className="text-[15px] text-[#CC340E] font-medium hover:underline"
           >
             Forgot Password?
-          </a>
+          </Link>
         </div>
         {/* Submit Button */}
         <Button
           type="submit"
           className="w-full bg-[#050C82] hover:bg-[#34399B] text-white rounded-lg h-[52px] text-[16px] font-semibold mt-[6px]"
-        >
-          Log into your Account
+          disabled={isPending}>
+          {/* change to a loader tomorrow */}
+          {isPending ? "Logging in..." : "Log into your Account"}
         </Button>
 
         <p className="text-center text-[15px] text-gray-800 pt-[10px]">
@@ -98,3 +126,5 @@ export default function LoginForm() {
     </div>
   );
 }
+
+export default LoginForm

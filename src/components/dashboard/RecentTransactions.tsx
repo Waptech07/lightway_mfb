@@ -123,7 +123,7 @@ const RecentTransactions = (): React.JSX.Element => {
           </p>
         </div>
         <Link
-          to={""}
+          to={"/dashboard/view-all"}
           className="text-primary flex items-center gap-1 text-sm sm:text-base"
         >
           View All <GoArrowRight className="mt-0.5" />

@@ -19,6 +19,7 @@ import SingleTransactionDetails from "./pages/transaction-history/SingleTransact
 function App(): React.JSX.Element {
   return (
     <>
+    
       <Toaster position="bottom-right" richColors />
       <Routes>
         <Route path="/" element={<Login />} />

@@ -9,6 +9,7 @@ import allRequestsBg from "@/assets/requests-card-bg.png";
 import Header from "@/components/Header";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import { PendingTransactions } from "@/components/dashboard/PendingTransactions";
+import { Link } from "react-router-dom";
 
 const Dashboard = (): React.JSX.Element => {
   return (
@@ -24,10 +25,10 @@ const Dashboard = (): React.JSX.Element => {
               activities
             </p>
           </div>
-          <Button>
+          <Link to="/dashboard/view-all">
             View All
             <GoArrowRight />
-          </Button>
+          </Link>
         </div>
 
         {/* Balance Cards */}
