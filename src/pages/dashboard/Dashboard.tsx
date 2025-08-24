@@ -1,34 +1,44 @@
 import React from "react";
 import DashboardBalance from "@/components/dashboard/DashboardBalance";
 import DashboardQA from "@/components/dashboard/DashboardQA";
-import { Button } from "@/components/ui/button";
-import { GoArrowRight } from "react-icons/go";
 import transactionHistoryBg from "@/assets/transaction-card-bg.png";
 import statementsBg from "@/assets/statements-card-bg.png";
 import allRequestsBg from "@/assets/requests-card-bg.png";
 import Header from "@/components/Header";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import { PendingTransactions } from "@/components/dashboard/PendingTransactions";
-import { Link } from "react-router-dom";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = (): React.JSX.Element => {
+  const navigate = useNavigate();
+
   return (
     <div className="text-left font-sf-pro">
       {/* Header Section */}
-      <Header header=" Hello, Enooobong & Sons 💼," detail="Wednesday, 23 July 2025" />
+      <Header
+        header=" Hello, Enooobong & Sons 💼,"
+        detail="Wednesday, 23 July 2025"
+      />
       <section className="flex flex-col gap-8 mb-6 ">
-        <div className="justify-between flex items-center">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-medium">Overview</h2>
+            <h2 className="text-base font-medium mb-1">Overview</h2>
             <p className="text-muted-foreground font-normal text-xs">
               See your overall information regarding your courses and your
               activities
             </p>
           </div>
-          <Link to="/dashboard/view-all">
+
+          <button
+            className="inline-flex items-center gap-2 px-4 py-2 bg-primary/90 rounded-lg text-white text-xs"
+            onClick={() => {
+              navigate("/dashboard/view-all");
+            }}
+          >
             View All
-            <GoArrowRight />
-          </Link>
+            <FaArrowRightLong />
+          </button>
         </div>
 
         {/* Balance Cards */}
@@ -52,8 +62,8 @@ const Dashboard = (): React.JSX.Element => {
       <section className="mb-8">
         <div className="mb-4">
           {/* The color is not primary  */}
-          <h2 className="text-lg font-medium">Quick Actions</h2>
-          <p className="text-[#6B6B6B] text-xs md:text-sm">
+          <h2 className="text-base font-medium mb-1">Quick Actions</h2>
+          <p className="text-muted-foreground text-xs">
             Perform common banking actions instantly
           </p>
         </div>

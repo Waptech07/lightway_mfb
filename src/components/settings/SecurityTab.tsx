@@ -8,9 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import ConfirmationDialog from "./ConfirmationDialog";
+import formatCurrency from "@/lib/formatCurrency";
 
 interface Account {
   id: string;
@@ -98,15 +99,6 @@ const SecurityTab = () => {
       }
     }
   }, [selectedAccount]);
-
-  const formatCurrency = useCallback((value: number) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
-  }, []);
 
   const handleCopy = async (text: string) => {
     if (!text) return;

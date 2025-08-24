@@ -18,6 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CustomDateInput from "@/components/CustomDateInput";
 import Header from "@/components/Header";
 import { PiUsersThreeBold } from "react-icons/pi";
+import formatCurrency from "@/lib/formatCurrency";
 
 const getInitials = (name: string): string => {
   const words = name.trim().split(/\s+/);
@@ -346,13 +347,6 @@ const BulkTransactionDetails = () => {
     }
     return pages;
   };
-
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-    }).format(value);
 
   return (
     <div className="font-sf-pro">

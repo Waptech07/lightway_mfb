@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowLeftRight } from "lucide-react";
 import Header from "@/components/Header";
+import formatCurrency from "@/lib/formatCurrency";
+import formatDate from "@/lib/formatDate";
 
 // Transaction type
 type Transaction = {
@@ -121,23 +123,6 @@ const SingleTransactionDetails = () => {
       </div>
     );
   }
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  };
 
   return (
     <div className="font-sf-pro">

@@ -1,9 +1,9 @@
 import React from "react";
-import { GoArrowRight } from "react-icons/go";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DataTable } from "./DataTable";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 type Transaction = {
   accountName: string;
@@ -16,6 +16,7 @@ type Transaction = {
 };
 
 const RecentTransactions = (): React.JSX.Element => {
+  const navigate = useNavigate();
   const transactions: Transaction[] = [
     {
       accountName: "Enoobong George",
@@ -115,19 +116,20 @@ const RecentTransactions = (): React.JSX.Element => {
     <div className="flex-2 flex gap-4 flex-col min-w-0 font-sf-pro">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="min-w-[200px] flex-1">
-          <h2 className="text-base sm:text-lg font-medium">
-            Recent Transactions
-          </h2>
-          <p className="text-xs sm:text-sm font-normal text-muted-foreground">
+          <h2 className="text-base font-medium mb-1">Recent Transactions</h2>
+          <p className="text-xs font-normal text-muted-foreground">
             Your recent transactions on the platform
           </p>
         </div>
-        <Link
-          to={"/dashboard/view-all"}
-          className="text-primary flex items-center gap-1 text-sm sm:text-base"
+        <button
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-primary text-xs"
+          onClick={() => {
+            navigate("/dashboard/view-all");
+          }}
         >
-          View All <GoArrowRight className="mt-0.5" />
-        </Link>
+          View All
+          <FaArrowRightLong />
+        </button>
       </div>
       <div className="overflow-x-auto">
         <div className="min-w-[600px]">

@@ -16,6 +16,8 @@ import Header from "@/components/Header";
 import { ArrowLeft, ArrowRight, Loader2, SearchIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import CustomDateInput from "@/components/CustomDateInput";
+import formatCurrency from "@/lib/formatCurrency";
+import formatDate from "@/lib/formatDate";
 
 // Account type
 type Account = {
@@ -232,21 +234,6 @@ const TransactionHistory = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
-
-  // Format currency with Naira symbol
-  const formatCurrency = useCallback((value: number) => {
-    return new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
-  }, []);
-
-  // Format date to string
-  const formatDate = useCallback((date: Date) => {
-    return date.toLocaleDateString("en-GB");
-  }, []);
 
   // Copy account number to clipboard
   const handleCopy = useCallback(async () => {
