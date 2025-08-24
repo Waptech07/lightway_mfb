@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import cardBg from "@/assets/card-bg.png";
 import { FaRegCopy } from "react-icons/fa6";
 import { PiEye, PiEyeSlash, PiUsersThreeBold } from "react-icons/pi";
@@ -215,6 +216,7 @@ const getInitials = (name: string): string => {
 };
 
 const TransactionHistory = () => {
+  const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
   const [selectedAccount, setSelectedAccount] = useState<Account>(accounts[0]);
@@ -750,7 +752,20 @@ const TransactionHistory = () => {
                       </div>
                     </td>
                     <td className="py-4 px-6 whitespace-nowrap text-center">
-                      <button className="text-primary/70 rounded px-2 py-1 text-xs font-normal border-[0.5px] border-primary/70 hover:bg-primary hover:text-white cursor-pointer">
+                      <button
+                        onClick={() => {
+                          if (transaction.requestType === "Bulk Transfer") {
+                            navigate(
+                              `/bulk-transaction-details/${transaction.id}`
+                            );
+                          } else {
+                            navigate(
+                              `/single-transaction-details/${transaction.id}`
+                            );
+                          }
+                        }}
+                        className="text-primary/70 rounded px-2 py-1 text-xs font-normal border-[0.5px] border-primary/70 hover:bg-primary hover:text-white cursor-pointer"
+                      >
                         View
                       </button>
                     </td>

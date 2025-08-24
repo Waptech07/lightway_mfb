@@ -13,6 +13,8 @@ import BulkPayments from "./pages/transfer/BulkPayments";
 import TransactionHistory from "./pages/transaction-history/TransactionHistory";
 import Statements from "./pages/Statements";
 import Settings from "./pages/Settings";
+import BulkTransactionDetails from "./pages/transaction-history/BulkTransactionDetails";
+import SingleTransactionDetails from "./pages/transaction-history/SingleTransactionDetails";
 
 function App(): React.JSX.Element {
   return (
@@ -28,7 +30,17 @@ function App(): React.JSX.Element {
         <Route element={<MainLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/view-all" element={<DashBoardViewAll />} />
+
           <Route path="/transaction-history" element={<TransactionHistory />} />
+          <Route
+            path="/bulk-transaction-details/:id"
+            element={<BulkTransactionDetails />}
+          />
+          <Route
+            path="/single-transaction-details/:id"
+            element={<SingleTransactionDetails />}
+          />
+
           <Route path="/statements" element={<Statements />} />
           <Route path="/settings" element={<Settings />} />
           <Route
