@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 type ForgotPasswordFormValueType = {
   username: string;
 }
@@ -71,7 +72,10 @@ const ForgotPasswordForm = (): React.JSX.Element => {
           type="submit" disabled={isPending}
           className="w-full bg-blue-900 text-white py-6 rounded hover:bg-blue-800 transition"
         >
-          {!isPending ? "Send Password Reset Email" : "Sending mail"}
+
+          {!isPending ? "Send Password Reset Email" :
+            <Loader2 className="animate-spin h-6 w-6 text-white" />
+          }
         </Button>
       </form>
     </div>
