@@ -13,15 +13,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Loader2 } from "lucide-react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  isLoading: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data,
+  data, isLoading
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -51,7 +53,15 @@ export function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-40 text-center">
+                <div className="flex justify-center items-center h-full">
+                  <Loader2 className="animate-spin h-6 w-6 text-primary mx-auto" />
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}

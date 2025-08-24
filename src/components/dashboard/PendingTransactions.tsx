@@ -2,10 +2,20 @@ import React from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { useCustomQuery } from "@/hooks/useCustomQuery";
+import { Loader2 } from "lucide-react";
 
 export const PendingTransactions = (): React.JSX.Element => {
   const navigate = useNavigate();
-  const users = [
+  type UserType = {
+    id: string;
+    name: string;
+    amount: string;
+    initials: string;
+    bgColor: string;
+  }[];
+  
+  const users: UserType = [
     {
       id: "ST5676058",
       name: "Enoobong George",
@@ -35,7 +45,8 @@ export const PendingTransactions = (): React.JSX.Element => {
       bgColor: "bg-primary",
     },
   ];
-
+  // see how the query works, just pass the url and key then destructure
+  const { data, isLoading } = useCustomQuery({ url: "", key: "pendingTransactions", });
   return (
     <div className="flex-1 flex flex-col gap-4 min-w-0 font-sf-pro">
       <div className="flex items-center justify-between flex-wrap gap-2">
@@ -45,63 +56,74 @@ export const PendingTransactions = (): React.JSX.Element => {
             Transactions awaiting your Approval / Rejection
           </p>
         </div>
-        <button
+        <button disabled={users.length < 1 && true}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-primary text-xs"
           onClick={() => {
             navigate("/dashboard/view-all");
           }}
+        // would change this to disable when there ain't no date
         >
           View All
           <FaArrowRightLong />
         </button>
       </div>
       <div className="w-full">
-        <div
-          role="list"
-          aria-label="User list with account information"
-          className="space-y-0"
-        >
-          {users.map((user) => (
-            <div
-              key={user.id}
-              role="listitem"
-              tabIndex={0}
-              className="flex flex-row items-center justify-between py-3 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors border-b border-gray-100 last:border-b-0 cursor-pointer"
-              aria-label={`${user.name}, ID ${user.id}, Amount ${user.amount}`}
-            >
-              <div className="flex items-center space-x-3 mb-2 sm:mb-0">
-                <Avatar className="h-8 w-8 sm:h-10 sm:w-10" aria-hidden="true">
-                  <AvatarFallback
-                    className={`${user.bgColor} text-white text-xs sm:text-sm font-medium`}
-                  >
-                    {user.initials}
-                  </AvatarFallback>
-                </Avatar>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-40">
+            <Loader2 className="animate-spin h-6 w-6 text-primary mx-auto" />
+          </div>
+        ) : users.length ? (
+          <div
+            role="list"
+            aria-label="User list with account information"
+            className="space-y-0"
+          >
+            {users.map((user) => (
+              <div
+                key={user.id}
+                role="listitem"
+                tabIndex={0}
+                className="flex flex-row items-center justify-between py-3 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors border-b border-gray-100 last:border-b-0 cursor-pointer"
+                aria-label={`${user.name}, ID ${user.id}, Amount ${user.amount}`}
+              >
+                <div className="flex items-center space-x-3 mb-2 sm:mb-0">
+                  <Avatar className="h-8 w-8 sm:h-10 sm:w-10" aria-hidden="true">
+                    <AvatarFallback
+                      className={`${user.bgColor} text-white text-xs sm:text-sm font-medium`}
+                    >
+                      {user.initials}
+                    </AvatarFallback>
+                  </Avatar>
 
-                <div className="flex flex-col min-w-0">
-                  <p className="text-sm font-medium text-gray-900 leading-tight truncate">
-                    {user.name}
-                  </p>
-                  <span
-                    className="text-xs sm:text-sm font-normal truncate"
-                    aria-label={`Account ID ${user.id}`}
+                  <div className="flex flex-col min-w-0">
+                    <p className="text-sm font-medium text-gray-900 leading-tight truncate">
+                      {user.name}
+                    </p>
+                    <span
+                      className="text-xs sm:text-sm font-normal truncate"
+                      aria-label={`Account ID ${user.id}`}
+                    >
+                      {user.id}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="text-right sm:text-left sm:min-w-[100px]">
+                  <p
+                    className="text-sm md:text-base font-medium text-gray-900 truncate"
+                    aria-label={`Amount ${user.amount}`}
                   >
-                    {user.id}
-                  </span>
+                    {user.amount}
+                  </p>
                 </div>
               </div>
-
-              <div className="text-right sm:text-left sm:min-w-[100px]">
-                <p
-                  className="text-sm md:text-base font-medium text-gray-900 truncate"
-                  aria-label={`Amount ${user.amount}`}
-                >
-                  {user.amount}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center h-40">
+            <p className="text-primary text-base font-medium">No Pending Transactions Found</p>
+          </div>
+        )}
       </div>
     </div>
   );

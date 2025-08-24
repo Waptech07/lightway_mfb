@@ -4,6 +4,7 @@ import { DataTable } from "./DataTable";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useCustomQuery } from "@/hooks/useCustomQuery";
 
 type Transaction = {
   accountName: string;
@@ -46,6 +47,7 @@ const RecentTransactions = (): React.JSX.Element => {
       status: "Successful",
     },
   ];
+  const { data, isLoading } = useCustomQuery({ url: "", key: "recentTransactions", });
 
   const columns: ColumnDef<Transaction>[] = [
     {
@@ -133,7 +135,8 @@ const RecentTransactions = (): React.JSX.Element => {
       </div>
       <div className="overflow-x-auto">
         <div className="min-w-[600px]">
-          <DataTable columns={columns} data={transactions} />
+          {/* change the transactions to the data gotten from the api */}
+          <DataTable columns={columns} data={transactions} isLoading={isLoading} />
         </div>
       </div>
     </div>
