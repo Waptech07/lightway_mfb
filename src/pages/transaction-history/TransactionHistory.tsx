@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import cardBg from "@/assets/card-bg.png";
 import { FaRegCopy } from "react-icons/fa6";
 import { PiEye, PiEyeSlash, PiUsersThreeBold } from "react-icons/pi";
@@ -12,15 +12,9 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "@/components/Header";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CalendarDays,
-  ChevronDown,
-  Loader2,
-  SearchIcon,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, SearchIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import CustomDateInput from "@/components/CustomDateInput";
 
 // Account type
 type Account = {
@@ -204,25 +198,6 @@ const mockTransactions: Transaction[] = [
   },
 ];
 
-// Custom date input component
-const CustomDateInput = React.forwardRef<
-  HTMLButtonElement,
-  { value?: string; onClick?: () => void }
->(({ value, onClick }, ref) => (
-  <button
-    className="relative flex items-center w-[200px] py-3 px-2 bg-transparent border border-gray-300 rounded-lg text-sm text-black cursor-pointer"
-    onClick={onClick}
-    ref={ref}
-    type="button"
-  >
-    <CalendarDays className="text-gray-400 mr-2 w-4 h-4" />
-    <span className="appearance-none w-full bg-transparent outline-none text-left font-mono">
-      {value}
-    </span>
-    <ChevronDown className="text-gray-400 absolute right-3 pointer-events-none w-4 h-4" />
-  </button>
-));
-
 // Helper to get initials from account name
 const getInitials = (name: string): string => {
   const words = name.trim().split(/\s+/);
@@ -243,8 +218,8 @@ const TransactionHistory = () => {
   const [copied, setCopied] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
   const [selectedAccount, setSelectedAccount] = useState<Account>(accounts[0]);
-  const [startDate, setStartDate] = useState<Date>(new Date(2025, 5, 1)); // June 1, 2025
-  const [endDate, setEndDate] = useState<Date>(new Date(2025, 5, 30)); // June 30, 2025
+  const [startDate, setStartDate] = useState<Date>(new Date(2025, 5, 1));
+  const [endDate, setEndDate] = useState<Date>(new Date(2025, 5, 30));
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<
     "All" | Transaction["status"]
@@ -458,10 +433,7 @@ const TransactionHistory = () => {
 
             {/* Account Selection */}
             <div className="min-w-[150px] w-full sm:w-auto">
-              <Select
-                onValueChange={handleAccountChange}
-                // value={selectedAccount.id}
-              >
+              <Select onValueChange={handleAccountChange}>
                 <SelectTrigger className="bg-[#050C82] border-[#050C82] text-white [&>svg]:text-white w-full sm:w-auto">
                   <SelectValue placeholder="Choose an Account" />
                 </SelectTrigger>
@@ -669,10 +641,11 @@ const TransactionHistory = () => {
             whileTap={{ scale: 0.95 }}
             onClick={handleSearch}
             disabled={isLoading}
-            className={`${isLoading
+            className={`${
+              isLoading
                 ? "bg-gray-200 cursor-not-allowed"
                 : "bg-primary/5 hover:bg-primary/15 cursor-pointer"
-              } text-primary/70 rounded-md px-6 py-2 font-medium border border-primary/70`}
+            } text-primary/70 rounded-md px-6 py-2 font-medium border border-primary/70`}
           >
             {isLoading ? "Searching..." : "Search"}
           </motion.button>
@@ -755,13 +728,23 @@ const TransactionHistory = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center justify-center mr-5">
                         <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${transaction.status === "Approved"
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                            transaction.status === "Approved"
                               ? "bg-green-100 text-green-800"
                               : transaction.status === "Pending"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-red-100 text-red-800"
-                            }`}
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
                         >
+                          <span
+                            className={`h-2 w-2 rounded-full mr-2 ${
+                              transaction.status === "Approved"
+                                ? "bg-green-800"
+                                : transaction.status === "Pending"
+                                ? "bg-yellow-800"
+                                : "bg-red-800"
+                            }`}
+                          ></span>
                           {transaction.status}
                         </span>
                       </div>
@@ -794,10 +777,11 @@ const TransactionHistory = () => {
                 title="navigate-left"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${currentPage === 1
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
+                  currentPage === 1
                     ? "border-gray-300 text-gray-400 cursor-not-allowed"
                     : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                  }`}
+                }`}
               >
                 <ArrowLeft size={18} />
               </button>
@@ -807,10 +791,11 @@ const TransactionHistory = () => {
                     <button
                       key={`page-${page}`}
                       onClick={() => handlePageChange(page)}
-                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${currentPage === page
+                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${
+                        currentPage === page
                           ? "bg-[#050C82] text-white"
                           : "text-black hover:bg-[#050C82] hover:text-white"
-                        }`}
+                      }`}
                     >
                       {page}
                     </button>
@@ -828,10 +813,11 @@ const TransactionHistory = () => {
                 title="navigate-right"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${currentPage === totalPages
+                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
+                  currentPage === totalPages
                     ? "border-gray-300 text-gray-400 cursor-not-allowed"
                     : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                  }`}
+                }`}
               >
                 <ArrowRight size={18} />
               </button>

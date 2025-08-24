@@ -9,13 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarDays, ChevronDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "@/components/Header";
 import formatCurrency from "@/lib/formatCurrency";
+import CustomDateInput from "@/components/CustomDateInput";
 
 interface Account {
   id: string;
@@ -128,25 +129,6 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
     link.click();
     document.body.removeChild(link);
   };
-
-  // Custom date input component
-  const CustomDateInput = React.forwardRef<
-    HTMLButtonElement,
-    { value?: string; onClick?: () => void }
-  >(({ value, onClick }, ref) => (
-    <button
-      className="relative flex items-center w-[200px] py-3 px-2 bg-transparent border border-gray-300 rounded-lg text-sm text-black cursor-pointer"
-      onClick={onClick}
-      ref={ref}
-      type="button"
-    >
-      <CalendarDays className="text-gray-400 mr-2 w-4 h-4" />
-      <span className="appearance-none w-full bg-transparent outline-none text-left font-mono">
-        {value}
-      </span>
-      <ChevronDown className="text-gray-400 absolute right-3 pointer-events-none w-4 h-4" />
-    </button>
-  ));
 
   // Generate mock transactions for demo purposes
   const generateMockTransactions = (
