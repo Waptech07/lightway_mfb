@@ -67,7 +67,7 @@ const ForgotPasswordForm = (): React.JSX.Element => {
               className="w-full pl-8 py-3 border border-blue-900 rounded outline-none focus:ring-2 focus:ring-blue-600"
             />
           </div>
-          <p className="text-red text-left pt-2">{errors.username?.message}</p>
+         {errors.username && <p className="text-red text-left pt-2">{errors.username.message}</p>}
         </div>  <Button
           type="submit" disabled={isPending}
           className="w-full bg-blue-900 text-white py-6 rounded hover:bg-blue-800 transition"

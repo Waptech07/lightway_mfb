@@ -67,7 +67,7 @@ const LoginForm = (): React.JSX.Element => {
                 }
               })} />
           </div>
-          <p className="text-red text-left">{errors.username?.message}</p>
+          {errors.username && <p className="text-red text-left">{errors.username.message}</p>}
         </div>
         {/* Password Field */}
         <div>
@@ -94,8 +94,7 @@ const LoginForm = (): React.JSX.Element => {
               })}
             />
           </div>
-          <p className="text-red text-left">{errors.password?.message}</p>
-
+          {errors.password && <p className="text-red text-left">{errors.password?.message}</p>}
         </div>
         {/* Remember + Forgot Password */}
         <div className="flex items-center justify-between pt-[2px]">

@@ -17,7 +17,7 @@ const ResetPasswordForm = (): React.JSX.Element => {
 
     const navigate = useNavigate();
     const { formState: { errors }, register, handleSubmit, watch } = useForm<ResetPasswordType>();
-    
+
     //remember to change to appropriate route later and add error handler tomorrow
     const { mutate, isPending } = useCustomMutation<ResetPasswordType, any>({ url: "auth/reset-password", key: "reset-password", });
     const password = watch("password") || "";
@@ -93,7 +93,7 @@ const ResetPasswordForm = (): React.JSX.Element => {
                             className="pl-11 h-[50px] border-2 border-[#0B0B75] rounded-lg text-left"
                         />
                     </div>
-                    <p className="text-red">{errors.password?.message}</p>
+                    {errors.password && <p className="text-red">{errors.password.message}</p>}
 
                 </div>
                 <div className="flex flex-wrap gap-2 mt-2 mb-4">
@@ -136,7 +136,7 @@ const ResetPasswordForm = (): React.JSX.Element => {
                             })}
                         />
                     </div>
-                    <p className="text-red">{errors.confirmPassword?.message}</p>
+                    {errors.confirmPassword && <p className="text-red">{errors.confirmPassword?.message}</p>}
 
                 </div>
                 {/* // className="w-full pl-8 py-3 " */}
