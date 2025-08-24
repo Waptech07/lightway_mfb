@@ -22,7 +22,7 @@ const Dashboard = (): React.JSX.Element => {
       />
       <section className="flex flex-col gap-8 mb-6 ">
         <div className="flex items-center justify-between">
-          <div>
+          <div className="flex-1 mr-2">
             <h2 className="text-base font-medium mb-1">Overview</h2>
             <p className="text-muted-foreground font-normal text-xs">
               See your overall information regarding your courses and your

@@ -19,6 +19,7 @@ import CustomDateInput from "@/components/CustomDateInput";
 import Header from "@/components/Header";
 import { PiUsersThreeBold } from "react-icons/pi";
 import formatCurrency from "@/lib/formatCurrency";
+import Pagination from "@/lib/Pagination";
 
 const getInitials = (name: string): string => {
   const words = name.trim().split(/\s+/);
@@ -627,15 +628,15 @@ const BulkTransactionDetails = () => {
                               : "bg-red-100 text-red-800"
                           }`}
                         >
-                        <span
-                          className={`h-2 w-2 rounded-full mr-2 ${
-                            transaction.status === "Approved"
-                              ? "bg-green-800"
-                              : transaction.status === "Pending"
-                              ? "bg-yellow-800"
-                              : "bg-red-800"
-                          }`}
-                        ></span>
+                          <span
+                            className={`h-2 w-2 rounded-full mr-2 ${
+                              transaction.status === "Approved"
+                                ? "bg-green-800"
+                                : transaction.status === "Pending"
+                                ? "bg-yellow-800"
+                                : "bg-red-800"
+                            }`}
+                          ></span>
                           {transaction.status}
                         </span>
                       </div>
@@ -655,84 +656,17 @@ const BulkTransactionDetails = () => {
             </tbody>
           </table>
         </div>
+
         {/* Pagination */}
         {bulkTransfer.transactions.length > 0 && (
-          <div className="flex flex-wrap gap-y-4 justify-between items-center">
-            <div className="flex gap-4">
-              <button
-                title="navigate-left"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
-                  currentPage === 1
-                    ? "border-gray-300 text-gray-400 cursor-not-allowed"
-                    : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                }`}
-              >
-                <ArrowLeft size={18} />
-              </button>
-              <div className="flex items-center justify-center text-center gap-0.5">
-                {generatePageNumbers().map((page, index) =>
-                  typeof page === "number" ? (
-                    <button
-                      key={`page-${page}`}
-                      onClick={() => handlePageChange(page)}
-                      className={`w-10 h-10 text-sm font-medium rounded-lg p-3 cursor-pointer ${
-                        currentPage === page
-                          ? "bg-[#050C82] text-white"
-                          : "text-black hover:bg-[#050C82] hover:text-white"
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ) : (
-                    <span
-                      key={`ellipsis-${index}`}
-                      className="w-10 h-10 text-sm font-medium text-black rounded-lg p-3"
-                    >
-                      ...
-                    </span>
-                  )
-                )}
-              </div>
-              <button
-                title="navigate-right"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className={`flex items-center justify-center w-12 h-9 py-2 px-[14px] rounded-lg border ${
-                  currentPage === totalPages
-                    ? "border-gray-300 text-gray-400 cursor-not-allowed"
-                    : "border-[#050C82] text-[#050C82] hover:text-white hover:bg-[#050C82] cursor-pointer"
-                }`}
-              >
-                <ArrowRight size={18} />
-              </button>
-            </div>
-            <div>
-              <Select
-                onValueChange={handleRowsPerPageChange}
-                value={`Show ${rowsPerPage} rows`}
-              >
-                <SelectTrigger className="bg-[#050C82] border-[#050C82] text-white rounded-lg p-3 h-full">
-                  <SelectValue placeholder={`Show ${rowsPerPage} rows`} />
-                </SelectTrigger>
-                <SelectContent className="bg-[#050C82] text-white border-[#050C82]">
-                  <SelectItem
-                    value="Show 5 rows"
-                    className="text-white cursor-pointer"
-                  >
-                    Show 5 rows
-                  </SelectItem>
-                  <SelectItem
-                    value="Show 10 rows"
-                    className="text-white cursor-pointer"
-                  >
-                    Show 10 rows
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleRowsPerPageChange}
+            generatePageNumbers={generatePageNumbers}
+          />
         )}
       </div>
     </div>
