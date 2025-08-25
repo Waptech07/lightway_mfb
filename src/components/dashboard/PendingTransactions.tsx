@@ -46,7 +46,7 @@ export const PendingTransactions = (): React.JSX.Element => {
     },
   ];
   // see how the query works, just pass the url and key then destructure
-  const { data, isLoading } = useCustomQuery({ url: "", key: "pendingTransactions", });
+  const { isLoading } = useCustomQuery({ url: "", key: "pendingTransactions", });
   return (
     <div className="flex-1 flex flex-col gap-4 min-w-0 font-sf-pro">
       <div className="flex items-center justify-between flex-wrap gap-2">

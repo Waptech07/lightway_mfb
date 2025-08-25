@@ -3,7 +3,7 @@ import { MessageSquareTextIcon } from "lucide-react";
 
 type ConfirmationType = "success" | "error";
 
-interface ConfirmationDialogProps {
+type ConfirmationDialogProps ={
   open: boolean;
   onConfirm: () => void;
   onCancel: () => void;

@@ -3,13 +3,13 @@ import { Label } from '@/components/ui/label'
 import { TbCurrencyNaira } from 'react-icons/tb'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
-import { BsPencilSquare } from 'react-icons/bs'
 import { Input } from '../../ui/input'
 import type React from 'react'
 import { PiHash } from 'react-icons/pi'
 import { IoIosInformationCircleOutline } from 'react-icons/io'
 import { LiaUser } from 'react-icons/lia'
 const AddRecipientDialog = ({ openDialog, setOpenDialog, user }: { setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>, openDialog: boolean, user: any }): React.JSX.Element => {
+   console.log(user)
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog} >
             <DialogContent className='w-100 flex gap-8 flex-col' showCloseButton={false}>

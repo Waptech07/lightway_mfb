@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 
-interface ConfirmationDialogProps {
+type ConfirmationDialogProps = {
   open: boolean;
   onConfirm: () => void;
   onCancel: () => void;

@@ -47,7 +47,7 @@ const RecentTransactions = (): React.JSX.Element => {
       status: "Successful",
     },
   ];
-  const { data, isLoading } = useCustomQuery({ url: "", key: "recentTransactions", });
+  const {  isLoading } = useCustomQuery({ url: "", key: "recentTransactions", });
 
   const columns: ColumnDef<Transaction>[] = [
     {

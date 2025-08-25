@@ -41,7 +41,7 @@ const DestinationForm = (): React.JSX.Element => {
     ];
 const { formState: { errors }, register, handleSubmit } = useForm<DestinationFormValueType>();
   //remember to change to appropriate route later and add error handler tomorrow
-  const { mutate, isPending } = useCustomMutation<DestinationFormValueType, any>({ url: "auth/login", key: "login", });
+  const { mutate } = useCustomMutation<DestinationFormValueType, any>({ url: "auth/login", key: "login", });
   const onSubmit: SubmitHandler<DestinationFormValueType> = (data) => {
     mutate(data, {
       onError(error) {
@@ -53,7 +53,7 @@ const { formState: { errors }, register, handleSubmit } = useForm<DestinationFor
         <form className="flex flex-col gap-4 pt-9 w-96 max-tab:w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-2">
                 <Label className="" htmlFor='amount'>Select Destination Account</Label>
-                <Select {...register("destinationAccount", { required: "Destination account is required" })}>
+                <Select>
                     <SelectTrigger className="w-full relative pl-10 data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground">
                         <SelectValue placeholder="Select Destination Account" />
                         <span className='absolute left-2'>
@@ -90,8 +90,8 @@ const { formState: { errors }, register, handleSubmit } = useForm<DestinationFor
                 </div>
 
             </div>
-             {/* onClick={() => setOpenConfirmDialog(true)} */}
-            <Button type='submit' className='w-50 mt-4 text-sm font-normal h-10'>
+             {/*  */}
+            <Button type='submit' className='w-50 mt-4 text-sm font-normal h-10' onClick={() => setOpenConfirmDialog(true)}>
                 Confirm Transaction
             </Button>
             <ConfirmPaymentDialog setOpenDialog={setOpenConfirmDialog} openDialog={openConfirmDialog} bankTransferData={bankTransferData} />

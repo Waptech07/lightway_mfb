@@ -31,7 +31,8 @@ const ResetPasswordForm = (): React.JSX.Element => {
             },
             onError(error) {
                 // ✅ More robust error handling
-                toast.error(error?.response?.data?.message || "Something went wrong");
+                console.log(error)
+                // toast.error(error?.response?.data?.message || "Something went wrong");
             },
         });
     };
