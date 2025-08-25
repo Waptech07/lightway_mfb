@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { X } from 'lucide-react'
 import { RiArrowLeftRightLine } from "react-icons/ri";
 

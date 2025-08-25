@@ -1,14 +1,7 @@
 import Header from "@/components/Header";
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { ArrowLeft, ArrowRight, Loader2, SearchIcon } from "lucide-react";
+import { Loader2, SearchIcon } from "lucide-react";
 import { BsArrowLeftSquare } from "react-icons/bs";
 import formatCurrency from "@/lib/formatCurrency";
 import Pagination from "@/lib/Pagination";

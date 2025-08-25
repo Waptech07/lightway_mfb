@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import DatePicker from "react-datepicker";
@@ -46,7 +45,7 @@ const Statements: React.FC<StatementsProps> = ({ accounts }) => {
   const [selectedAccount, setSelectedAccount] = useState<Account>(accounts[0]);
   const [startDate, setStartDate] = useState<Date>(() => {
     const date = new Date();
-    date.setMonth(date.getMonth() - 1);
+    date.setMonth(date.getMonth() - 4);
     return date;
   });
   const [endDate, setEndDate] = useState<Date>(new Date());

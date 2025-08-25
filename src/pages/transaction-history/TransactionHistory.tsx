@@ -13,7 +13,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "@/components/Header";
-import { ArrowLeft, ArrowRight, Loader2, SearchIcon } from "lucide-react";
+import { Loader2, SearchIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import CustomDateInput from "@/components/CustomDateInput";
 import formatCurrency from "@/lib/formatCurrency";
@@ -223,8 +223,12 @@ const TransactionHistory = () => {
   const [copied, setCopied] = useState(false);
   const [showBalance, setShowBalance] = useState(true);
   const [selectedAccount, setSelectedAccount] = useState<Account>(accounts[0]);
-  const [startDate, setStartDate] = useState<Date>(new Date(2025, 5, 1));
-  const [endDate, setEndDate] = useState<Date>(new Date(2025, 5, 30));
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<Date>(() => {
+    const start = new Date();
+    start.setDate(start.getDate() - 120);
+    return start;
+  });
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<
     "All" | Transaction["status"]

@@ -107,9 +107,16 @@ export default function MainLayout() {
         </div>
 
         {/* Page Content */}
-        <div className="p-6 flex-1 bg-white">
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="p-6 flex-1 bg-white"
+        >
           <Outlet />
-        </div>
+        </motion.div>
       </div>
     </div>
   );

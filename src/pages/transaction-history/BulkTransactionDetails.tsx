@@ -1,11 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Loader2,
-  Search as SearchIcon,
-} from "lucide-react";
+import { ArrowLeft, Loader2, Search as SearchIcon } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -260,11 +255,11 @@ const BulkTransactionDetails = () => {
 
   const bulkTransfer = mockBulkTransfers.find((transfer) => transfer.id === id);
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(() => {
-    const end = new Date();
-    end.setDate(end.getDate() + 30);
-    return end;
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<Date>(() => {
+    const start = new Date();
+    start.setDate(start.getDate() - 120);
+    return start;
   });
 
   const [currentPage, setCurrentPage] = useState(1);
