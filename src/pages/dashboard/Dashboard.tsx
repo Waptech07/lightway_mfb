@@ -4,6 +4,9 @@ import DashboardQA from "@/components/dashboard/DashboardQA";
 import transactionHistoryBg from "@/assets/transaction-card-bg.png";
 import statementsBg from "@/assets/statements-card-bg.png";
 import allRequestsBg from "@/assets/requests-card-bg.png";
+import transactionHistorySvg from "@/assets/transaction-card.svg";
+import statementsSvg from "@/assets/statements-card.svg";
+import allRequestsSvg from "@/assets/requests-card.svg";
 import Header from "@/components/Header";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
 import { PendingTransactions } from "@/components/dashboard/PendingTransactions";
@@ -73,16 +76,19 @@ const Dashboard = (): React.JSX.Element => {
             header="Transaction History"
             details="Stay up to date with your latest financial activity and quickly identify any transactions that require your attention."
             bgImage={transactionHistoryBg}
+            svg={transactionHistorySvg}
           />
           <DashboardQA
             header="Statements"
             details="Generate and retrieve comprehensive statements for reconciliation, compliance, or business analysis."
             bgImage={statementsBg}
+            svg={statementsSvg}
           />
           <DashboardQA
             header="All Requests"
             details="View and track the status of all your transaction and service requests in one place — pending, approved, or rejected."
             bgImage={allRequestsBg}
+            svg={allRequestsSvg}
           />
         </div>
       </section>
