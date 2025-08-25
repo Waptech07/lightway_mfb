@@ -15,11 +15,13 @@ import Statements from "./pages/Statements";
 import Settings from "./pages/Settings";
 import BulkTransactionDetails from "./pages/transaction-history/BulkTransactionDetails";
 import SingleTransactionDetails from "./pages/transaction-history/SingleTransactionDetails";
+import AllRequests from "./pages/requests/AllRequests";
+import PendingRequests from "./pages/requests/PendingRequests";
+import BulkRequestDetails from "./pages/requests/BulkRequestDetails";
 
 function App(): React.JSX.Element {
   return (
-    <>
-    
+    <>    
       <Toaster position="bottom-right" richColors />
       <Routes>
         <Route path="/" element={<Login />} />
@@ -29,26 +31,28 @@ function App(): React.JSX.Element {
 
         {/* MainLayout routes*/}
         <Route element={<MainLayout />}>
+          {/* Dashboard Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/view-all" element={<DashBoardViewAll />} />
+          
+          {/* Transfer Routes */}
+          <Route path="/transfer/single-payments"element={<SinglePayments />} />
+          <Route path="/transfer/bulk-payments" element={<BulkPayments />} />
 
+          {/* Transaction History Routes */}
           <Route path="/transaction-history" element={<TransactionHistory />} />
-          <Route
-            path="/bulk-transaction-details/:id"
-            element={<BulkTransactionDetails />}
-          />
-          <Route
-            path="/single-transaction-details/:id"
-            element={<SingleTransactionDetails />}
-          />
+          <Route path="/bulk-transaction-details/:id" element={<BulkTransactionDetails />} />
+          <Route path="/single-transaction-details/:id" element={<SingleTransactionDetails />} />
 
+          {/* Requests Routes */}
+          <Route path="/requests/all-requests" element={<AllRequests />} />
+          <Route path="/requests/pending-requests" element={<PendingRequests />} />
+          <Route path="/bulk-request-details/:id" element={<BulkRequestDetails />} />
+          <Route path="/single-request-details/:id" element={<SingleTransactionDetails />} />
+
+          {/* Statements & Settings Routes */}
           <Route path="/statements" element={<Statements />} />
           <Route path="/settings" element={<Settings />} />
-          <Route
-            path="/transfer/single-payments"
-            element={<SinglePayments />}
-          />
-          <Route path="/transfer/bulk-payments" element={<BulkPayments />} />
         </Route>
       </Routes>
     </>
